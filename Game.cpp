@@ -3,6 +3,12 @@
 void Game::setup() {
 	ofBackground(0);
 	ofSetRectMode(OF_RECTMODE_CENTER);
+	ofSetFrameRate(60);
+
+	int screenWidth = ofGetScreenWidth();
+	int screenHeight = ofGetScreenHeight();
+
+	cout << screenWidth;
 }
 
 //--------------------------------------------------------------
