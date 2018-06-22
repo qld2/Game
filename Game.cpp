@@ -8,7 +8,6 @@ void Game::setup() {
 	int screenWidth = ofGetScreenWidth();
 	int screenHeight = ofGetScreenHeight();
 
-	cout << screenWidth;
 }
 
 //--------------------------------------------------------------

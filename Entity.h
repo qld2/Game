@@ -19,6 +19,6 @@ public:
 private:
 	vector<float>& getBoundariesX();
 	vector<float>& getBoundariesY();
-	bool checkWallBoundaries(vector<float>& x, vector<float>& y, float deltaX, float deltaY);
+	bool checkWallBoundaries(vector<float>& x, vector<float>& y, float deltaX, float deltaY, float deltaO);
 };
 
