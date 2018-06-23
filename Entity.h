@@ -3,7 +3,7 @@
 
 class Entity
 {
-	const int TRANSLATIONAL_SPEED = 4;
+	const int TRANSLATIONAL_SPEED = 8;
 	const int ROTATIONAL_SPEED = 4;
 	const int SIZE = 50;
 	float xLoc, yLoc;
@@ -19,6 +19,6 @@ public:
 private:
 	vector<float>& getBoundariesX();
 	vector<float>& getBoundariesY();
-	bool checkWallBoundaries(vector<float>& x, vector<float>& y, float deltaX, float deltaY, float deltaO);
+	bool checkWallBoundaries(vector<float>& x, vector<float>& y, float deltaX, float deltaY);
 };
 
