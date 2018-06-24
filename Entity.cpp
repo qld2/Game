@@ -32,8 +32,8 @@ void Entity::update()
 	vector<float>& boundariesY = getBoundariesY();
 
 	if (ofGetKeyPressed('j')) {
-		int deltaX = sin(ofDegToRad(ROTATIONAL_SPEED));
-		int deltaY = -1 * cos(ofDegToRad(ROTATIONAL_SPEED));
+		int deltaX = sin(ofDegToRad(-1 * ROTATIONAL_SPEED));
+		int deltaY = -1 * cos(ofDegToRad(-1 * ROTATIONAL_SPEED));
 
 		if (checkWallBoundaries(boundariesX, boundariesY, deltaX, deltaY)) {
 			orientation -= ROTATIONAL_SPEED;
@@ -129,15 +129,14 @@ vector<float>& Entity::getBoundariesY() {
 }
 
 bool Entity::checkWallBoundaries(vector<float>& x, vector<float>& y, float deltaX, float deltaY) {
-		
+	
+
 	for (int i = 0; i < x.size(); i++) {
-		int dx = x[i] + deltaX + sqrt(2) * SIZE * sin(ofDegToRad(orientation)) / 2;
-		if (dx < 0 || dx > ofGetScreenWidth()) return false;
+		if (x[i] + deltaX <= 0 || x[i] + deltaX >= ofGetScreenWidth()) return false;
 	}
 	
 	for (int i = 0; i < y.size(); i++) {
-		int dy = y[i] + deltaY + sqrt(2) * SIZE * cos(ofDegToRad(orientation)) / 2;
-		if (dy < 0 || dy > ofGetScreenHeight()) return false;
+		if (y[i] + deltaY <= 0 || y[i] + deltaY >= ofGetScreenHeight()) return false;
 	}
 
 	return true;
