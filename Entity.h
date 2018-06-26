@@ -3,25 +3,26 @@
 
 class Entity
 {
-	const int TRANSLATIONAL_SPEED = 8;
-	const int ROTATIONAL_SPEED = 4;
-	const int SIZE = 50;
+protected:
+	int translationalSpeed = 8;
+	int rotationalSpeed = 4;
+	int SIZE = 50;
 	float xLoc, yLoc;
 	float orientation;
 
 public:
+	ofColor* arrowColor;
+	ofColor* color;
+
+public:
 	Entity(float x, float y, float o);
+	Entity();
 	~Entity();
 
 	void draw();
-	void update();
+	virtual void update() = 0;
 
 private:
-	vector<float>& getBoundariesX();
-	vector<float>& getBoundariesY();
-	bool checkWallBoundaries(vector<float>& x, vector<float>& y, float newX, float newY);
-	bool checkWallBoundaries(float deltaO);
 
-	void reachBoundary(vector<float>& x, vector<float>& y, float deltaX, float deltaY);
 };
 
