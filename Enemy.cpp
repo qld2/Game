@@ -21,17 +21,17 @@ Enemy::~Enemy()
 }
 
 void Enemy::update() {
-	if (orientation >= 360) orientation -= 360;
-	if (orientation < 0) orientation += 360;
+	if (orientation >= 2 * PI) orientation -= 2 * PI;
+	if (orientation < 0) orientation += 2 * PI;
 	
 	float x = p->getX() - xLoc;
 	float y = p->getY() - yLoc;
-	float newO = 90 + ofRadToDeg(atan2(y, x));
+	float newO = PI / 2 + atan2(y, x);
 
-	if (newO >= 360) newO -= 360;
-	if (newO < 0) newO += 360;
+	if (newO >= 2 * PI) newO -= 2 * PI;
+	if (newO < 0) newO += 2 * PI;
 
-	float n = cos(ofDegToRad(-orientation)) * sin(ofDegToRad(newO)) + sin(ofDegToRad(-orientation)) * cos(ofDegToRad(newO));
+	float n = cos(-orientation) * sin(newO) + sin(-orientation) * cos(newO);
 
 	if (n < 0) {
 		orientation -= rotationalSpeed;
@@ -43,8 +43,8 @@ void Enemy::update() {
 
 	cout << n << " " << newO << endl;
 	
-	xLoc += translationalSpeed * sin(ofDegToRad(orientation));
-	yLoc += -1 * translationalSpeed * cos(ofDegToRad(orientation));
+	xLoc += translationalSpeed * sin(orientation);
+	yLoc += -1 * translationalSpeed * cos(orientation);
 
 	draw();
 }

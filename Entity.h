@@ -8,7 +8,7 @@ class Entity
 {
 protected:
 	int translationalSpeed = 8;
-	int rotationalSpeed = 4;
+	float rotationalSpeed = PI / 64;
 	int SIZE = 50;
 	float xLoc, yLoc;
 	float orientation;
