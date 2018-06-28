@@ -17,6 +17,7 @@ void Game::update() {
 
 //--------------------------------------------------------------
 void Game::draw() {
+
 	e->update();
 	player->update();
 }

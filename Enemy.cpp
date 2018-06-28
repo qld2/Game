@@ -26,12 +26,12 @@ void Enemy::update() {
 	
 	float x = p->getX() - xLoc;
 	float y = p->getY() - yLoc;
-	float newO = PI / 2 + atan2(y, x);
+	float newO = atan2(y, x);
 
 	if (newO >= 2 * PI) newO -= 2 * PI;
 	if (newO < 0) newO += 2 * PI;
 
-	float n = cos(-orientation) * sin(newO) + sin(-orientation) * cos(newO);
+	float n = sin(-orientation) * cos(newO) + cos(-orientation) * sin(newO);
 
 	if (n < 0) {
 		orientation -= rotationalSpeed;
@@ -40,11 +40,8 @@ void Enemy::update() {
 		orientation += rotationalSpeed;
 	}
 	
-
-	cout << n << " " << newO << endl;
-	
-	xLoc += translationalSpeed * sin(orientation);
-	yLoc += -1 * translationalSpeed * cos(orientation);
+	xLoc += translationalSpeed * cos(orientation);
+	yLoc += translationalSpeed * sin(orientation);
 
 	draw();
 }

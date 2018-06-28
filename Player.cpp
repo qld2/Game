@@ -27,9 +27,10 @@ Player::~Player()
 
 void Player::update()
 {
+	
 	vector<float>& boundariesX = getBoundariesX();
 	vector<float>& boundariesY = getBoundariesY();
-
+	/*
 	if (ofGetKeyPressed('j') && ofGetKeyPressed('l')) {
 
 	}
@@ -163,6 +164,33 @@ void Player::update()
 
 	delete &boundariesX;
 	delete &boundariesY;
+	*/
+
+	if (ofGetKeyPressed('j')) {
+
+		//if (checkWallBoundaries(-1 * rotationalSpeed)) {
+			orientation -= rotationalSpeed;
+		//}
+	}
+	else if (ofGetKeyPressed('l')) {
+
+		//if (checkWallBoundaries(rotationalSpeed)) {
+			orientation += rotationalSpeed;
+		//}
+
+	}
+
+	if (ofGetKeyPressed('w')) {
+		float deltaX = translationalSpeed * cos(orientation);
+		float deltaY = translationalSpeed * sin(orientation);
+
+		if (checkWallBoundaries(boundariesX, boundariesY, deltaX, deltaY)) {
+			xLoc += deltaX;
+			yLoc += deltaY;
+		}
+	}
+
+	draw();
 }
 
 vector<float>& Player::getBoundariesX() {

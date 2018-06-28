@@ -5,7 +5,7 @@ Entity::Entity(float x, float y, float o)
 {
 	xLoc = x;
 	yLoc = y;
-	orientation = o;
+	orientation = PI / 4 + o;
 
 	arrowColor = new ofColor(255, 50);
 	color = new ofColor(0, 100, 255);
@@ -40,11 +40,12 @@ void Entity::draw()
 	ofSetColor(*color);
 	ofDrawRectangle(0, 0, SIZE, SIZE);
 
-	ofTranslate(0, SIZE * -1);
+	ofTranslate(SIZE, 0);
 	ofSetColor(*arrowColor);
-	ofDrawTriangle(p1, p2, p3);
+	//ofDrawTriangle(p1, p2, p3);
+	ofDrawRectangle(0, 0, 10, 10);
 
-	ofTranslate(0, SIZE);
+	ofTranslate(SIZE * -1, 0);
 	ofRotateRad(-1 * orientation);
 	ofTranslate(-1 * xLoc, -1 * yLoc);
 }
