@@ -21,36 +21,30 @@ Enemy::~Enemy()
 }
 
 void Enemy::update() {
-	float newO;
+	if (orientation >= 360) orientation -= 360;
+	if (orientation < 0) orientation += 360;
+	
 	float x = p->getX() - xLoc;
-	float y = yLoc - p->getY();
+	float y = p->getY() - yLoc;
+	float newO = 90 + ofRadToDeg(atan2(y, x));
 
-	if (x > 0 && y > 0) {
-		cout << "q1" << endl;
-		newO = 90 - ofRadToDeg(atan2(yLoc - p->getY(), p->getX() - xLoc));
-	}
-	else if (x > 0 && y < 0) {
-		cout << "q4" << endl;
-		newO = ofRadToDeg(atan2(p->getY() - yLoc, p->getX() - xLoc));
-	}
-	else if (x < 0 && y > 0) {
-		cout << "q2" << endl;
-		newO = ofRadToDeg(atan2(yLoc - p->getY(), xLoc - p->getX())) + 270;
-	}
-	else {
-		cout << "q3" << endl;
-		newO = 90 - ofRadToDeg(atan2(p->getY() - yLoc, p->getX() - xLoc)) + 180;
-	}
+	if (newO >= 360) newO -= 360;
+	if (newO < 0) newO += 360;
 
-	if (newO > orientation) {
+	float n = cos(ofDegToRad(-orientation)) * sin(ofDegToRad(newO)) + sin(ofDegToRad(-orientation)) * cos(ofDegToRad(newO));
+
+	if (n < 0) {
 		orientation -= rotationalSpeed;
 	}
-	else if (newO < orientation) {
+	else if (n > 0) {
 		orientation += rotationalSpeed;
 	}
 	
-	//xLoc -= translationalSpeed * sin(ofDegToRad(orientation));
-	//yLoc -= -1 * translationalSpeed * cos(ofDegToRad(orientation));
+
+	cout << n << " " << newO << endl;
+	
+	xLoc += translationalSpeed * sin(ofDegToRad(orientation));
+	yLoc += -1 * translationalSpeed * cos(ofDegToRad(orientation));
 
 	draw();
 }

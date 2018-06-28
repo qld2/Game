@@ -157,6 +157,8 @@ void Player::update()
 		}
 	}
 
+	if (orientation >= 360) orientation -= 360;
+
 	draw();
 
 	delete &boundariesX;
