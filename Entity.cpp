@@ -35,7 +35,7 @@ void Entity::draw()
 
 
 	ofTranslate(xLoc, yLoc);
-	ofRotate(orientation);
+	ofRotateDeg(orientation);
 
 	ofSetColor(*color);
 	ofDrawRectangle(0, 0, SIZE, SIZE);
@@ -44,6 +44,16 @@ void Entity::draw()
 	ofSetColor(*arrowColor);
 	ofDrawTriangle(p1, p2, p3);
 
+	ofTranslate(0, SIZE);
+	ofRotateDeg(-1 * orientation);
+	ofTranslate(-1 * xLoc, -1 * yLoc);
 }
 
 
+float Entity::getX() {
+	return xLoc;
+}
+
+float Entity::getY() {
+	return yLoc;
+}

@@ -1,5 +1,8 @@
 #pragma once
 #include "ofMain.h"
+//#include "CommonIncludes.h"
+
+class Player;
 
 class Entity
 {
@@ -10,7 +13,8 @@ protected:
 	float xLoc, yLoc;
 	float orientation;
 
-public:
+	static Player * p;
+
 	ofColor* arrowColor;
 	ofColor* color;
 
@@ -18,6 +22,9 @@ public:
 	Entity(float x, float y, float o);
 	Entity();
 	~Entity();
+
+	float getX();
+	float getY();
 
 	void draw();
 	virtual void update() = 0;

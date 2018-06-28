@@ -8,6 +8,6 @@ public:
 	Enemy();
 	~Enemy();
 
-	void update() override;
+	void update();
 };
 

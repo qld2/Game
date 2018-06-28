@@ -1,10 +1,16 @@
 #include "Player.h"
 
-Player::Player(float x, float y, float o)
+Player* Player::p = nullptr;
+
+Player::Player(float x, float y, float o) : Entity(x, y, o)
 {
 	xLoc = x;
 	yLoc = y;
 	orientation = o;
+
+	color = new ofColor(0, 100, 255);
+
+	p = this;
 }
 
 Player::Player()

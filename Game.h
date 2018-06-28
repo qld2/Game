@@ -6,8 +6,8 @@ extern int screenWidth, screenHeight;
 
 class Game : public ofBaseApp
 {
-	Player* player = new Player(70, 70, 0);
-	Enemy* e = new Enemy(70, 70, 0);
+	Player* player = new Player(70, 70, 90);
+	Enemy* e = new Enemy(500, 500, 270);
 
 public:
 
