@@ -1,11 +1,13 @@
-#include "Enemy.h"
-#include "Player.h"
+#include "..\Entity_headers\Enemy.h"
+#include "..\Entity_headers\Player.h"
 
-Enemy::Enemy(float x, float y, float o) : Entity(x, y, o)
+Enemy::Enemy(float x, float y, float o, Player * p) : Entity(x, y, o)
 {
 	xLoc = x;
 	yLoc = y;
 	orientation = o;
+	player = p;
+	health = 3;
 
 	translationalSpeed = 2;
 
@@ -21,15 +23,11 @@ Enemy::~Enemy()
 }
 
 void Enemy::update() {
-	if (orientation >= 2 * PI) orientation -= 2 * PI;
-	if (orientation < 0) orientation += 2 * PI;
+	refreshOrientation();
 	
-	float x = p->getX() - xLoc;
-	float y = p->getY() - yLoc;
+	float x = player->getX() - xLoc;
+	float y = player->getY() - yLoc;
 	float newO = atan2(y, x);
-
-	if (newO >= 2 * PI) newO -= 2 * PI;
-	if (newO < 0) newO += 2 * PI;
 
 	float n = sin(-orientation) * cos(newO) + cos(-orientation) * sin(newO);
 
@@ -42,6 +40,12 @@ void Enemy::update() {
 	
 	xLoc += translationalSpeed * cos(orientation);
 	yLoc += translationalSpeed * sin(orientation);
+}
 
-	draw();
+void Enemy::drawHealthBar() {
+
+}
+
+bool Enemy::checkForCollision() {
+	return true;
 }

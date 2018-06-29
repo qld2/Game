@@ -1,16 +1,14 @@
-#include "Player.h"
-
-Player* Player::p = nullptr;
+#include "..\Entity_headers\Player.h"
 
 Player::Player(float x, float y, float o) : Entity(x, y, o)
 {
 	xLoc = x;
 	yLoc = y;
 	orientation = o;
+	health = 10;
 
 	color = new ofColor(0, 100, 255);
 
-	p = this;
 }
 
 Player::Player()
@@ -168,15 +166,15 @@ void Player::update()
 
 	if (ofGetKeyPressed('j')) {
 
-		//if (checkWallBoundaries(-1 * rotationalSpeed)) {
+		if (checkWallBoundaries(-1 * rotationalSpeed)) {
 			orientation -= rotationalSpeed;
-		//}
+		}
 	}
 	else if (ofGetKeyPressed('l')) {
 
-		//if (checkWallBoundaries(rotationalSpeed)) {
+		if (checkWallBoundaries(rotationalSpeed)) {
 			orientation += rotationalSpeed;
-		//}
+		}
 
 	}
 
@@ -189,7 +187,7 @@ void Player::update()
 			yLoc += deltaY;
 		}
 	}
-
+	updateHealth();
 	draw();
 }
 
@@ -247,4 +245,26 @@ void Player::reachBoundary(vector<float>& x, vector<float>& y, float deltaX, flo
 			return;
 		}
 	}
+}
+
+void Player::updateHealth() {
+	/*
+	static auto timer = std::chrono::high_resolution_clock::now();
+	auto now = std::chrono::high_resolution_clock::now();
+	auto duration = now - timer;
+	cout << duration.count() << endl;
+
+
+	if (duration.count() > 1e9) {
+		health--;
+		timer = std::chrono::high_resolution_clock::now();
+	}
+	*/
+}
+
+void Player::drawHealthBar() {
+	ofSetColor(250, 0, 0);
+	float unit = 50;
+	int length = health * unit;
+	ofDrawRectangle(175, 100, length, 65);
 }
