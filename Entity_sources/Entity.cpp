@@ -35,6 +35,13 @@ void Entity::draw()
 
 	//drawHealthBar();
 
+	float* x = getBoundariesX();
+	float* y = getBoundariesY();
+
+	for (int i = 0; i < boundaryCount; i++) {
+		ofDrawRectangle(x[i], y[i], 20, 20);
+	}
+
 	ofTranslate(xLoc, yLoc);
 	ofRotateRad(orientation);
 
@@ -49,6 +56,26 @@ void Entity::draw()
 	ofTranslate(SIZE * -1, 0);
 	ofRotateRad(-1 * orientation);
 	ofTranslate(-1 * xLoc, -1 * yLoc);
+}
+
+float* Entity::getBoundariesX() {
+	float* result = new float[boundaryCount];
+
+	for (int i = 0; i < boundaryCount; i ++) {
+		result[i] = xLoc + sqrt(2) * SIZE * sin(i * PI / 2 - PI / 4 - orientation) / 2;
+	}
+
+	return result;
+}
+
+float* Entity::getBoundariesY() {
+	float* result = new float[boundaryCount];
+
+	for (int i = 0; i < boundaryCount; i++) {
+		result[i] = yLoc + sqrt(2) * SIZE * cos(i * PI / 2 - PI / 4 - orientation) / 2;
+	}
+
+	return result;
 }
 
 

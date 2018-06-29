@@ -8,12 +8,17 @@ protected:
 	int translationalSpeed = 8;
 	float rotationalSpeed = PI / 64;
 	int SIZE = 50;
+	
 	float xLoc, yLoc;
 	float orientation;
 	int health;
 
 	ofColor* arrowColor;
 	ofColor* color;
+
+	int boundaryCount = 4;
+	float* getBoundariesX();
+	float* getBoundariesY();
 	
 	void refreshOrientation();
 	virtual void drawHealthBar() = 0;

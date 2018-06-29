@@ -48,7 +48,7 @@ void Game::keyReleased(int key) {
 
 void Game::updateRound() {
 	float t = c1->read();
-	cout << t << endl;
+	//cout << t << endl;
 	if (t > 1e9 && enemiesRemaining > 0) {
 		spawnEnemy();
 		c1->reset();

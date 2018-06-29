@@ -26,8 +26,8 @@ Player::~Player()
 void Player::update()
 {
 	
-	vector<float>& boundariesX = getBoundariesX();
-	vector<float>& boundariesY = getBoundariesY();
+	float* boundariesX = getBoundariesX();
+	float* boundariesY = getBoundariesY();
 	/*
 	if (ofGetKeyPressed('j') && ofGetKeyPressed('l')) {
 
@@ -166,13 +166,13 @@ void Player::update()
 
 	if (ofGetKeyPressed('j')) {
 
-		if (checkWallBoundaries(-1 * rotationalSpeed)) {
+		if (checkWallBoundariesO(-1 * rotationalSpeed)) {
 			orientation -= rotationalSpeed;
 		}
 	}
 	else if (ofGetKeyPressed('l')) {
 
-		if (checkWallBoundaries(rotationalSpeed)) {
+		if (checkWallBoundariesO(rotationalSpeed)) {
 			orientation += rotationalSpeed;
 		}
 
@@ -182,49 +182,53 @@ void Player::update()
 		float deltaX = translationalSpeed * cos(orientation);
 		float deltaY = translationalSpeed * sin(orientation);
 
-		if (checkWallBoundaries(boundariesX, boundariesY, deltaX, deltaY)) {
+		if (checkWallBoundariesX(boundariesX, deltaX)) {
 			xLoc += deltaX;
+		}
+		if (checkWallBoundariesY(boundariesY, deltaY)) {
 			yLoc += deltaY;
+		}
+		else {
+			reachBoundary(boundariesX, boundariesY, deltaX, deltaY);
+		}
+	} else if (ofGetKeyPressed('s')) {
+		float deltaX = -translationalSpeed * cos(orientation);
+		float deltaY = -translationalSpeed * sin(orientation);
+
+		if (checkWallBoundariesX(boundariesX, deltaX)) {
+			xLoc += deltaX;
+		}
+		if (checkWallBoundariesY(boundariesY, deltaY)) {
+			yLoc += deltaY;
+		}
+		else {
+			reachBoundary(boundariesX, boundariesY, deltaX, deltaY);
 		}
 	}
 	updateHealth();
 	draw();
 }
 
-vector<float>& Player::getBoundariesX() {
-	vector<float> * result = new vector<float>();
 
-	for (float i = 0; i < 2 * PI; i += PI / 2) {
-		result->push_back(xLoc + sqrt(2) * SIZE * sin(i - PI / 4 - orientation) / 2);
-	}
+bool Player::checkWallBoundariesX(float* x, float deltaX) {
 
-	return (*result);
-}
-
-vector<float>& Player::getBoundariesY() {
-	vector<float> * result = new vector<float>();
-
-	for (float i = 0; i < 2 * PI; i += PI / 2) {
-		result->push_back(yLoc + sqrt(2) * SIZE * cos(i - PI / 4 - orientation) / 2);
-	}
-
-	return (*result);
-}
-
-bool Player::checkWallBoundaries(vector<float>& x, vector<float>& y, float deltaX, float deltaY) {
-
-	for (int i = 0; i < x.size(); i++) {
+	for (int i = 0; i < boundaryCount; i++) {
 		if (x[i] + deltaX <= 0 || x[i] + deltaX >= ofGetScreenWidth()) return false;
 	}
-
-	for (int i = 0; i < y.size(); i++) {
-		if (y[i] + deltaY <= 0 || y[i] + deltaY >= ofGetScreenHeight()) return false;
-	}
-
+	
 	return true;
 }
 
-bool Player::checkWallBoundaries(float deltaO) {
+bool Player::checkWallBoundariesY(float* y, float deltaY) {
+
+	for (int i = 0; i < boundaryCount; i++) {
+		if (y[i] + deltaY <= 0 || y[i] + deltaY >= ofGetScreenHeight()) return false;
+	}
+	
+	return true;
+}
+
+bool Player::checkWallBoundariesO(float deltaO) {
 
 	for (float i = 0; i < 2 * PI; i += PI / 2) {
 		float newX = xLoc + sqrt(2) * SIZE * sin(i - PI / 4 - orientation - deltaO) / 2;
@@ -237,10 +241,13 @@ bool Player::checkWallBoundaries(float deltaO) {
 	return true;
 }
 
-void Player::reachBoundary(vector<float>& x, vector<float>& y, float deltaX, float deltaY) {
+void Player::reachBoundary(float* x, float* y, float deltaX, float deltaY) {
 	for (float i = .95; i > .1; i -= .05) {
-		if (checkWallBoundaries(x, y, i * deltaX, i * deltaY)) {
+		if (checkWallBoundariesX(x, i * deltaX)) {
 			xLoc += i * deltaX;
+			return;
+		}
+		if (checkWallBoundariesY(y, i * deltaY)) {
 			yLoc += i * deltaY;
 			return;
 		}

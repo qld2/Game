@@ -11,11 +11,10 @@ public:
 	void update() override;
 
 private:
-	vector<float>& getBoundariesX();
-	vector<float>& getBoundariesY();
-	bool checkWallBoundaries(vector<float>& x, vector<float>& y, float newX, float newY);
-	bool checkWallBoundaries(float deltaO);
-	void reachBoundary(vector<float>& x, vector<float>& y, float deltaX, float deltaY);
+	bool checkWallBoundariesX(float* x, float newX);
+	bool checkWallBoundariesY(float* y, float newY);
+	bool checkWallBoundariesO(float deltaO);
+	void reachBoundary(float* x, float* y, float deltaX, float deltaY);
 
 	void drawHealthBar() override;
 	void updateHealth();
