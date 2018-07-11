@@ -206,7 +206,6 @@ void Player::update()
 		}
 	}
 	updateHealth();
-	draw();
 }
 
 
@@ -255,18 +254,7 @@ void Player::reachBoundary(float* x, float* y, float deltaX, float deltaY) {
 }
 
 void Player::updateHealth() {
-	/*
-	static auto timer = std::chrono::high_resolution_clock::now();
-	auto now = std::chrono::high_resolution_clock::now();
-	auto duration = now - timer;
-	cout << duration.count() << endl;
-
-
-	if (duration.count() > 1e9) {
-		health--;
-		timer = std::chrono::high_resolution_clock::now();
-	}
-	*/
+	
 }
 
 void Player::drawHealthBar() {

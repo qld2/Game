@@ -87,7 +87,39 @@ float Entity::getY() {
 	return yLoc;
 }
 
+float Entity::getO() {
+	return orientation;
+}
+
 void Entity::refreshOrientation() {
 	if (orientation >= 2 * PI) orientation -= 2 * PI;
 	if (orientation < 0) orientation += 2 * PI;
+}
+
+bool Entity::hasCollided(Entity* other) {
+	float* xBoundaries = getBoundariesX();
+	float* yBoundaries = getBoundariesY();
+	float otherXLoc = other->getX();
+	float otherYLoc = other->getY();
+	float otherOrientation = other->getO();
+
+	for (int i = 0; i < boundaryCount; i++) {
+		int x = xBoundaries[i] - otherXLoc;
+		int y = yBoundaries[i] - otherYLoc;
+
+		float newX = cos(-otherOrientation) * x - sin(-otherOrientation) * y;
+		float newY = sin(-otherOrientation) * x + cos(-otherOrientation) * y;
+
+		if (newX >= -SIZE / 2 && newX <= SIZE / 2 &&
+			newY >= -SIZE / 2 && newY <= SIZE / 2) return true;
+	}
+
+	return false;
+}
+
+float Entity::distanceTo(Entity* other) {
+	float xLoc2 = other->getX();
+	float yLoc2 = other->getY();
+
+	return sqrt(pow((xLoc2 - xLoc), 2) + pow((yLoc2 - yLoc), 2));
 }

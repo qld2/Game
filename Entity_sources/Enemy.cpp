@@ -24,6 +24,10 @@ Enemy::~Enemy()
 
 void Enemy::update() {
 	refreshOrientation();
+
+	if (checkForCollision()) {
+		cout << xLoc;
+	}
 	
 	float x = player->getX() - xLoc;
 	float y = player->getY() - yLoc;
@@ -47,5 +51,6 @@ void Enemy::drawHealthBar() {
 }
 
 bool Enemy::checkForCollision() {
-	return true;
+	if (distanceTo(player) > sqrt(2) * SIZE);
+	if (hasCollided(player) || player->hasCollided(this)) return true;
 }

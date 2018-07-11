@@ -16,10 +16,9 @@ protected:
 	ofColor* arrowColor;
 	ofColor* color;
 
-	int boundaryCount = 4;
-	float* getBoundariesX();
-	float* getBoundariesY();
+	static const int boundaryCount = 4;
 	
+	float distanceTo(Entity* other);
 	void refreshOrientation();
 	virtual void drawHealthBar() = 0;
 public:
@@ -29,8 +28,13 @@ public:
 
 	float getX();
 	float getY();
+	float getO();
+	float* getBoundariesX();
+	float* getBoundariesY();
 
 	void draw();
 	virtual void update() = 0;
+
+	bool hasCollided(Entity* other);
 };
 

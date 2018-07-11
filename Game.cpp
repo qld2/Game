@@ -1,7 +1,5 @@
 #include "Game.h"
 
-class Clock;
-
 void Game::setup() {
 	ofBackground(0);
 	ofSetRectMode(OF_RECTMODE_CENTER);
@@ -11,8 +9,8 @@ void Game::setup() {
 	int screenHeight = ofGetScreenHeight();
 
 	player = new Player(400, 400, 0);
-	c1 = new Clock();
-	enemiesRemaining = 10;
+	c1 = new Stopwatch();
+	enemiesRemaining = 9;
 
 }
 
@@ -60,17 +58,3 @@ void Game::spawnEnemy() {
 	enemies.push_back(new Enemy(300, 300, 0, player));
 }
 
-
-Clock::Clock() {
-	start = std::chrono::high_resolution_clock::now();
-}
-
-Clock::~Clock() {}
-
-void Clock::reset() {
-	start = std::chrono::high_resolution_clock::now();
-}
-
-float Clock::read() {
-	return (std::chrono::high_resolution_clock::now() - start).count();
-}
