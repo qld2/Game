@@ -29,18 +29,9 @@ Entity::~Entity()
 
 void Entity::draw()
 {
-	ofVec2f p1(10, 0);
-	ofVec2f p2(0, -15);
-	ofVec2f p3(-10, 0);
-
-	//drawHealthBar();
-
-	float* x = getBoundariesX();
-	float* y = getBoundariesY();
-
-	for (int i = 0; i < boundaryCount; i++) {
-		ofDrawRectangle(x[i], y[i], 20, 20);
-	}
+	ofVec2f p1(0, -10);
+	ofVec2f p2(15, 0);
+	ofVec2f p3(0, 10);
 
 	ofTranslate(xLoc, yLoc);
 	ofRotateRad(orientation);
@@ -50,8 +41,7 @@ void Entity::draw()
 
 	ofTranslate(SIZE, 0);
 	ofSetColor(*arrowColor);
-	//ofDrawTriangle(p1, p2, p3);
-	ofDrawRectangle(0, 0, 10, 10);
+	ofDrawTriangle(p1, p2, p3);
 
 	ofTranslate(SIZE * -1, 0);
 	ofRotateRad(-1 * orientation);

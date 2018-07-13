@@ -11,11 +11,11 @@ public:
 	~Enemy();
 
 	void update();
-
+	void draw();
 private:
 	Player * player;
 
-	void drawHealthBar() override;
+	void drawHealthBar();
 	bool checkForCollision();
 };
 

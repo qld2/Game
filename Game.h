@@ -8,12 +8,12 @@ extern int screenWidth, screenHeight;
 class Game : public ofBaseApp
 {
 	Player* player;
-	vector<Enemy*> enemies;
+	Enemy** enemies;
 	Stopwatch* c1;
 	int enemiesRemaining;
-
+	int enemiesExisting;
+	int MAX_ENEMIES;
 public:
-
 	void setup();
 	void update(); 
 	void draw();

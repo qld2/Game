@@ -6,12 +6,14 @@ class Entity
 {
 protected:
 	int translationalSpeed = 8;
-	float rotationalSpeed = PI / 64;
+	float rotationalSpeed = PI / 50;
 	int SIZE = 50;
 	
+	int health = 0;
+	int maxHealth = 0;
+
 	float xLoc, yLoc;
 	float orientation;
-	int health;
 
 	ofColor* arrowColor;
 	ofColor* color;
@@ -20,7 +22,7 @@ protected:
 	
 	float distanceTo(Entity* other);
 	void refreshOrientation();
-	virtual void drawHealthBar() = 0;
+	//virtual void drawHealthBar() = 0;
 public:
 	Entity(float x, float y, float o);
 	Entity();

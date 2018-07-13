@@ -1,5 +1,6 @@
 #include "Game.h"
 
+
 void Game::setup() {
 	ofBackground(0);
 	ofSetRectMode(OF_RECTMODE_CENTER);
@@ -10,6 +11,10 @@ void Game::setup() {
 
 	player = new Player(400, 400, 0);
 	c1 = new Stopwatch();
+	
+	MAX_ENEMIES = 30;
+	enemiesExisting = 0;
+	enemies = new Enemy*[MAX_ENEMIES];
 	enemiesRemaining = 9;
 
 }
@@ -18,7 +23,7 @@ void Game::setup() {
 void Game::update() {
 	updateRound();
 
-	for (int i = 0; i < enemies.size(); i++) {
+	for (int i = 0; i < enemiesExisting; i++) {
 		enemies[i]->update();
 	}
 
@@ -27,17 +32,20 @@ void Game::update() {
 
 //--------------------------------------------------------------
 void Game::draw() {
+	player->draw();
 
-	for (int i = 0; i < enemies.size(); i++) {
+	for (int i = 0; i < enemiesExisting; i++) {
 		enemies[i]->draw();
 	}
 
-	player->draw();
+	player->drawHealthBar();
 }
 
 //--------------------------------------------------------------
 void Game::keyPressed(int key) {
-
+	if (key == 'i') {
+		player->shoot();
+	}
 }
 
 void Game::keyReleased(int key) {
@@ -46,7 +54,6 @@ void Game::keyReleased(int key) {
 
 void Game::updateRound() {
 	float t = c1->read();
-	//cout << t << endl;
 	if (t > 1e9 && enemiesRemaining > 0) {
 		spawnEnemy();
 		c1->reset();
@@ -55,6 +62,9 @@ void Game::updateRound() {
 }
 
 void Game::spawnEnemy() {
-	enemies.push_back(new Enemy(300, 300, 0, player));
+	if (enemiesExisting < MAX_ENEMIES) {
+		enemies[enemiesExisting] = new Enemy(300, 300, 0, player);
+		enemiesExisting++;
+	}
 }
 

@@ -7,8 +7,8 @@ Enemy::Enemy(float x, float y, float o, Player * p) : Entity(x, y, o)
 	yLoc = y;
 	orientation = o;
 	player = p;
-	health = 3;
-
+	health = 2;
+	maxHealth = 3;
 	translationalSpeed = 2;
 
 	color = new ofColor(255, 100, 0);
@@ -26,7 +26,7 @@ void Enemy::update() {
 	refreshOrientation();
 
 	if (checkForCollision()) {
-		cout << xLoc;
+		player->updateHealth();
 	}
 	
 	float x = player->getX() - xLoc;
@@ -44,13 +44,37 @@ void Enemy::update() {
 	
 	xLoc += translationalSpeed * cos(orientation);
 	yLoc += translationalSpeed * sin(orientation);
+
+}
+
+void Enemy::draw() {
+	if (health < maxHealth) {
+		drawHealthBar();
+	}
+	
+	Entity::draw();
 }
 
 void Enemy::drawHealthBar() {
-
+	float fullLength = 50;
+	float length = health * fullLength / maxHealth;
+	ofTranslate(xLoc, yLoc);
+	ofSetColor(250, 250, 250, 100);
+	ofDrawRectangle(0, -40, fullLength, 10);
+	ofSetColor(250, 0, 0);
+	ofDrawRectangle((length - fullLength) / 2, -40, length, 10);
+	ofTranslate(-xLoc,-yLoc);
 }
 
 bool Enemy::checkForCollision() {
-	if (distanceTo(player) > sqrt(2) * SIZE);
-	if (hasCollided(player) || player->hasCollided(this)) return true;
+
+	if (distanceTo(player) <= sqrt(2) * SIZE && (player->healthTimer->read() > 2e9)) {
+		if (hasCollided(player) || player->hasCollided(this)) {
+		player->healthTimer->reset();
+			return true;
+		}
+	}
+
+	return false;
+	
 }
