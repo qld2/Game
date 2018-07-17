@@ -12,10 +12,13 @@ public:
 
 	void update();
 	void draw();
+
+	bool hasDied();
 private:
 	Player * player;
 
 	void drawHealthBar();
 	bool checkForCollision();
+	bool checkForBullets();
 };
 

@@ -1,15 +1,15 @@
 #pragma once
 #include "Stopwatch.h"
 #include "Bullet.h"
+#include "Entity_headers/Entity.h"
 
 class Gun
 {
 	Stopwatch* fireTimer;
-	float fireGap = 1e9;
+	float fireGap = 2e8;
 
 	int MAX_EXISTING = 15;
-	int bulletsExisting = 0;
-	Bullet** bullets = new Bullet*[MAX_EXISTING];
+	vector<Bullet*> bullets;
 	
 
 public:
@@ -20,5 +20,7 @@ public:
 	void draw();
 
 	void shoot(float x, float y, float o);
+
+	vector<Bullet*>& getBullets();
 };
 

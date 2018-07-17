@@ -2,6 +2,8 @@
 
 
 void Game::setup() {
+	gamestate = 0;
+
 	ofBackground(0);
 	ofSetRectMode(OF_RECTMODE_CENTER);
 	ofSetFrameRate(60);
@@ -12,40 +14,78 @@ void Game::setup() {
 	player = new Player(400, 400, 0);
 	c1 = new Stopwatch();
 	
-	MAX_ENEMIES = 30;
+	
 	enemiesExisting = 0;
 	enemies = new Enemy*[MAX_ENEMIES];
-	enemiesRemaining = 9;
+	enemiesRemaining = 10;
 
 }
 
 //--------------------------------------------------------------
 void Game::update() {
-	updateRound();
 
-	for (int i = 0; i < enemiesExisting; i++) {
-		enemies[i]->update();
+	if (gamestate == 0) {
+
+	}
+	else if (gamestate == 1) {
+
+		if (player->getHealth() <= 0) {
+			gamestate = 2;
+		}
+
+		updateRound();
+
+		for (int i = enemiesExisting - 1; i >= 0; i--) {
+			if (enemies[i]->hasDied()) {
+				delete enemies[i];
+
+				if (i + 1 < enemiesExisting) {
+					for (int j = i; j < enemiesExisting - 1; j++)
+						enemies[j] = enemies[j + 1];
+					i--;
+				}
+
+				enemiesExisting--;
+			}
+		}
+
+		for (int i = 0; i < enemiesExisting; i++) {
+			enemies[i]->update();
+		}
+
+		player->update();
+	}
+	else if (gamestate == 2) {
+
 	}
 
-	player->update();
+	
 }
 
 //--------------------------------------------------------------
 void Game::draw() {
-	player->draw();
+	
+	if (gamestate == 0) {
 
-	for (int i = 0; i < enemiesExisting; i++) {
-		enemies[i]->draw();
 	}
+	else if (gamestate == 1) {
+		player->draw();
 
-	player->drawHealthBar();
+		for (int i = 0; i < enemiesExisting; i++) {
+			enemies[i]->draw();
+		}
+
+		player->drawHealthBar();
+
+	}
+	else if (gamestate == 2) {
+
+	}
 }
 
 //--------------------------------------------------------------
 void Game::keyPressed(int key) {
-	if (key == 'i') {
-		player->shoot();
-	}
+	if (key == 'p') gamestate = 1;
 }
 
 void Game::keyReleased(int key) {
@@ -58,6 +98,10 @@ void Game::updateRound() {
 		spawnEnemy();
 		c1->reset();
 		enemiesRemaining--;
+	}
+	
+	if (enemiesRemaining == 0 && enemiesExisting == 0) {
+		enemiesRemaining = 10;
 	}
 }
 

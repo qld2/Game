@@ -8,6 +8,7 @@ Player::Player(float x, float y, float o) : Entity(x, y, o)
 	orientation = o;
 	health = 3;
 	maxHealth = 3;
+	translationalSpeed = 15;
 
 	color = new ofColor(0, 100, 255);
 	gun = new Gun();
@@ -55,6 +56,8 @@ void Player::update()
 		}
 		if (checkWallBoundariesY(boundariesY, deltaY)) {
 			yLoc += deltaY;
+
+			if (ofGetKeyPressed('i')) shoot();
 		}
 		else {
 			reachBoundary(boundariesX, boundariesY, deltaX, deltaY);
@@ -68,11 +71,14 @@ void Player::update()
 		}
 		if (checkWallBoundariesY(boundariesY, deltaY)) {
 			yLoc += deltaY;
+		
+			
 		}
 		else {
 			reachBoundary(boundariesX, boundariesY, deltaX, deltaY);
 		}
-	}
+	} else if (ofGetKeyPressed('i')) shoot();
+	
 
 	gun->update();
 }
@@ -143,4 +149,12 @@ void Player::reachBoundary(float* x, float* y, float deltaX, float deltaY) {
 
 void Player::shoot() {
 	gun->shoot(xLoc, yLoc, orientation);
+}
+
+vector<Bullet*>& Player::getBullets() {
+	return gun->getBullets();
+}
+
+int Player::getHealth() {
+	return health;
 }

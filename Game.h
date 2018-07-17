@@ -7,12 +7,14 @@ extern int screenWidth, screenHeight;
 
 class Game : public ofBaseApp
 {
+int gamestate;
+
 	Player* player;
 	Enemy** enemies;
 	Stopwatch* c1;
 	int enemiesRemaining;
 	int enemiesExisting;
-	int MAX_ENEMIES;
+	const int MAX_ENEMIES = 30;
 public:
 	void setup();
 	void update(); 

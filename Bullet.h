@@ -2,16 +2,19 @@
 #include "Stopwatch.h"
 
 class Bullet {
-	Stopwatch * deathClock;
-	float xLoc, yLoc, orientation;
-	float speed;
+	float xLoc, yLoc, orientation, distanceTraveled;
+	float speed, range;
 	int damage;
 public:
-	Bullet(float x, float y, float theta);
+	Bullet(float x, float y, float theta, int damage);
 	~Bullet();
 
 	void update();
 	void draw();
 
-	bool hasDied();
+	bool hasExpired();
+
+	float getX();
+	float getY();
+	int getDamage();
 };

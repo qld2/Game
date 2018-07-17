@@ -1,12 +1,14 @@
 #include "Bullet.h"
 
-Bullet::Bullet(float x, float y, float theta) {
+Bullet::Bullet(float x, float y, float theta, int d) {
 	xLoc = x;
 	yLoc = y;
 	orientation = theta;
-	speed = 8;
+	distanceTraveled = 0;
+	damage = d;
 
-	deathClock = new Stopwatch();
+	speed = 8;
+	range = 400;
 }
 
 Bullet::~Bullet() {
@@ -14,8 +16,12 @@ Bullet::~Bullet() {
 }
 
 void Bullet::update() {
-	xLoc += speed * cos(orientation);
-	yLoc += speed * sin(orientation);
+	float deltaX = speed * cos(orientation);
+	float deltaY = speed * sin(orientation);
+
+	xLoc += deltaX;
+	yLoc += deltaY;
+	distanceTraveled += sqrt(pow(deltaX, 2) + pow(deltaY, 2));
 }
 
 void Bullet::draw() {
@@ -24,10 +30,23 @@ void Bullet::draw() {
 	ofDrawRectangle(xLoc, yLoc, 20, 20);
 }
 
-bool Bullet::hasDied() {
-	if (deathClock->read() > 1e9) {
+bool Bullet::hasExpired() {
+	if (distanceTraveled > range) {
+		cout << "DEAD " << endl;
 		return true;
 	}
 
 	return false;
+}
+
+float Bullet::getX() {
+	return xLoc;
+}
+
+float Bullet::getY() {
+	return yLoc;
+}
+
+int Bullet::getDamage() {
+	return damage;
 }

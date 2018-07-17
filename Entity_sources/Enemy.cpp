@@ -7,8 +7,8 @@ Enemy::Enemy(float x, float y, float o, Player * p) : Entity(x, y, o)
 	yLoc = y;
 	orientation = o;
 	player = p;
-	health = 2;
 	maxHealth = 3;
+	health = maxHealth;
 	translationalSpeed = 2;
 
 	color = new ofColor(255, 100, 0);
@@ -45,6 +45,7 @@ void Enemy::update() {
 	xLoc += translationalSpeed * cos(orientation);
 	yLoc += translationalSpeed * sin(orientation);
 
+	checkForBullets();
 }
 
 void Enemy::draw() {
@@ -78,3 +79,24 @@ bool Enemy::checkForCollision() {
 	return false;
 	
 }
+
+bool Enemy::checkForBullets() {
+	vector<Bullet*>& bullets = player->getBullets();
+
+	for (int i = 0; i < bullets.size(); i++) {
+		if (sqrt(pow(bullets[i]->getX() - xLoc,2) + pow(bullets[i]->getY() - yLoc,2)) < 25) {
+			health -= bullets[i]->getDamage();
+			bullets[i] = bullets.back();
+			bullets.pop_back();
+			i--;
+		}
+	}
+
+	return true;
+}
+
+bool Enemy::hasDied() {
+	if (health <= 0) return true;
+	return false;
+}
+
