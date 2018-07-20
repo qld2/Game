@@ -15,13 +15,13 @@ public:
 	Stopwatch* healthTimer;
 	
 	void update() override;
-	void draw();
+	void draw() const;
 	void updateHealth();
-	void drawHealthBar();
+	void drawHealthBar() const;
 	void shoot();
 
 	vector<Bullet*>& getBullets();
-	int getHealth();
+	int getHealth() const;
 private:
 	bool checkWallBoundariesX(float* x, float newX);
 	bool checkWallBoundariesY(float* y, float newY);

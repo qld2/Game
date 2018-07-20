@@ -24,7 +24,7 @@ void Bullet::update() {
 	distanceTraveled += sqrt(pow(deltaX, 2) + pow(deltaY, 2));
 }
 
-void Bullet::draw() {
+void Bullet::draw() const {
 	ofSetColor(250, 0, 0);
 	ofDrawRectangle(xLoc, yLoc, 20, 20);
 }

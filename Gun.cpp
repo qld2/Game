@@ -25,7 +25,7 @@ void Gun::update() {
 	}
 }
 
-void Gun::draw() {
+void Gun::draw() const {
 	for (int i = 0; i < bullets.size(); i++) {
 		bullets[i]->draw();
 	}

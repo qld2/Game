@@ -10,7 +10,7 @@ public:
 	~Bullet();
 
 	void update();
-	void draw();
+	void draw() const;
 
 	bool hasExpired();
 

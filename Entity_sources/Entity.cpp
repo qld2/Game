@@ -27,8 +27,8 @@ Entity::~Entity()
 	delete color;
 }
 
-void Entity::draw()
-{
+void Entity::draw() const {
+
 	ofVec2f p1(0, -10);
 	ofVec2f p2(15, 0);
 	ofVec2f p3(0, 10);
@@ -48,7 +48,7 @@ void Entity::draw()
 	ofTranslate(-1 * xLoc, -1 * yLoc);
 }
 
-float* Entity::getBoundariesX() {
+float* Entity::getBoundariesX() const {
 	float* result = new float[boundaryCount];
 
 	for (int i = 0; i < boundaryCount; i ++) {
@@ -58,7 +58,7 @@ float* Entity::getBoundariesX() {
 	return result;
 }
 
-float* Entity::getBoundariesY() {
+float* Entity::getBoundariesY() const {
 	float* result = new float[boundaryCount];
 
 	for (int i = 0; i < boundaryCount; i++) {
@@ -69,15 +69,15 @@ float* Entity::getBoundariesY() {
 }
 
 
-float Entity::getX() {
+float Entity::getX() const {
 	return xLoc;
 }
 
-float Entity::getY() {
+float Entity::getY() const {
 	return yLoc;
 }
 
-float Entity::getO() {
+float Entity::getO() const {
 	return orientation;
 }
 

@@ -3,16 +3,14 @@
 #include "Entity_headers\Enemy.h"
 #include "Stopwatch.h"
 
-extern int screenWidth, screenHeight;
-
 class Game : public ofBaseApp
 {
 int gamestate;
 
-	Player* player;
-	Stopwatch* c1;
+	Player player;
+	Stopwatch c1;
 
-	ofVec3f *a, *b, *c;
+	ofVec3f a, b, c;
 
 	int enemiesRemaining;
 	const int MAX_ENEMIES = 30;
@@ -30,9 +28,9 @@ public:
 	void keyReleased(int key);
 
 private:
-	void drawStartScreen();
-	void drawGame();
-	void drawGameOver();
+	void drawStartScreen() const;
+	void drawGame() const;
+	void drawGameOver() const;
 
 	void updateStartScreen();
 	void updateGame();

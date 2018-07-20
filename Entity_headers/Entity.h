@@ -28,13 +28,13 @@ public:
 	Entity();
 	~Entity();
 
-	float getX();
-	float getY();
-	float getO();
-	float* getBoundariesX();
-	float* getBoundariesY();
+	float getX() const;
+	float getY() const;
+	float getO() const;
+	float* getBoundariesX() const;
+	float* getBoundariesY() const;
 
-	void draw();
+	void draw() const;
 	virtual void update() = 0;
 
 	bool hasCollided(Entity* other);

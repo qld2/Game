@@ -17,7 +17,7 @@ public:
 	~Gun();
 
 	void update();
-	void draw();
+	void draw() const;
 
 	void shoot(float x, float y, float o);
 

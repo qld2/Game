@@ -87,13 +87,13 @@ void Player::updateHealth() {
 	health -= 1;
 }
 
-void Player::draw() {
+void Player::draw() const {
 	gun->draw();
 
 	Entity::draw();
 }
 
-void Player::drawHealthBar() {
+void Player::drawHealthBar() const {
 	float fullLength = 500;
 	float length = health * fullLength / maxHealth;
 	ofSetColor(250, 250, 250, 100);
@@ -155,6 +155,6 @@ vector<Bullet*>& Player::getBullets() {
 	return gun->getBullets();
 }
 
-int Player::getHealth() {
+int Player::getHealth() const {
 	return health;
 }
