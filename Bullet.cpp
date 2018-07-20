@@ -25,14 +25,12 @@ void Bullet::update() {
 }
 
 void Bullet::draw() {
-	cout << xLoc << ", " << yLoc << endl;
 	ofSetColor(250, 0, 0);
 	ofDrawRectangle(xLoc, yLoc, 20, 20);
 }
 
 bool Bullet::hasExpired() {
 	if (distanceTraveled > range) {
-		cout << "DEAD " << endl;
 		return true;
 	}
 

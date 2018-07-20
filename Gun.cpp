@@ -34,6 +34,7 @@ void Gun::draw() {
 
 void Gun::shoot(float x, float y, float o) {
 	if (fireTimer->read() > fireGap) {
+	//if (ofGetFrameNum() % 10 == 0) {
 		bullets.push_back(new Bullet(x, y, o, 2));
 		fireTimer->reset();
 	}

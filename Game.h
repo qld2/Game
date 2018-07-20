@@ -10,11 +10,14 @@ class Game : public ofBaseApp
 int gamestate;
 
 	Player* player;
-	Enemy** enemies;
 	Stopwatch* c1;
+
+	ofVec3f *a, *b, *c;
+
 	int enemiesRemaining;
-	int enemiesExisting;
 	const int MAX_ENEMIES = 30;
+	vector<Enemy*> enemies;
+
 public:
 	void setup();
 	void update(); 
@@ -25,4 +28,13 @@ public:
 
 	void keyPressed(int key);
 	void keyReleased(int key);
+
+private:
+	void drawStartScreen();
+	void drawGame();
+	void drawGameOver();
+
+	void updateStartScreen();
+	void updateGame();
+	void updateGameOver();
 };

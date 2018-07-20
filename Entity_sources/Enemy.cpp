@@ -69,9 +69,9 @@ void Enemy::drawHealthBar() {
 
 bool Enemy::checkForCollision() {
 
-	if (distanceTo(player) <= sqrt(2) * SIZE && (player->healthTimer->read() > 2e9)) {
+	if (distanceTo(player) <= sqrt(2) * SIZE && (player->healthTimer->read() > 2)) {
 		if (hasCollided(player) || player->hasCollided(this)) {
-		player->healthTimer->reset();
+			player->healthTimer->reset();
 			return true;
 		}
 	}

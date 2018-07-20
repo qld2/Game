@@ -6,7 +6,7 @@
 class Gun
 {
 	Stopwatch* fireTimer;
-	float fireGap = 2e8;
+	float fireGap = .1;
 
 	int MAX_EXISTING = 15;
 	vector<Bullet*> bullets;
