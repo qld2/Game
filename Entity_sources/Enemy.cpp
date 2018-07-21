@@ -1,14 +1,26 @@
 #include "..\Entity_headers\Enemy.h"
 #include "..\Entity_headers\Player.h"
 
-Enemy::Enemy(float x, float y, float o, Player& p) : player(p), Entity(x, y, o)
+Enemy::Enemy(float x, float y, float o, Player& p) : Entity(x, y, o), player(p)
 {
-	xLoc = x;
-	yLoc = y;
-	orientation = o;
+
+	translationalSpeed = 2;
+	rotationalSpeed = PI / 100;
+
 	maxHealth = 10;
 	health = maxHealth;
+
+	color = ofColor(255, 100, 0);
+}
+
+Enemy::Enemy() : Entity(100, 100, PI/4), player(Player(100, 100, PI / 4))
+{
+
 	translationalSpeed = 2;
+	rotationalSpeed = PI / 100;
+
+	maxHealth = 10;
+	health = maxHealth;
 
 	color = ofColor(255, 100, 0);
 }
@@ -43,7 +55,7 @@ void Enemy::update() {
 	checkForBullets();
 }
 
-void Enemy::draw() {
+void Enemy::draw() const {
 	if (health < maxHealth) {
 		drawHealthBar();
 	}
@@ -64,9 +76,9 @@ void Enemy::drawHealthBar() const {
 
 bool Enemy::checkForCollision() {
 
-	if (distanceTo(player) <= sqrt(2) * SIZE && (player.healthTimer->read() > 2)) {
+	if (distanceTo(player) <= sqrt(2) * size && (player.healthTimer.read() > 2)) {
 		if (hasCollided(player) || player.hasCollided(*this)) {
-			player.healthTimer->reset();
+			player.healthTimer.reset();
 			return true;
 		}
 	}
@@ -90,7 +102,7 @@ bool Enemy::checkForBullets() {
 	return true;
 }
 
-bool Enemy::hasDied() {
+bool Enemy::hasDied() const {
 	if (health <= 0) return true;
 	return false;
 }

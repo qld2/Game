@@ -1,30 +1,19 @@
 #include "..\Entity_headers\Entity.h"
 #include <cmath>
 
-Entity::Entity(float x, float y, float o)
+Entity::Entity(float x, float y, float o) : xLoc(x), yLoc(y), orientation(PI / 4 + o)
 {
-	xLoc = x;
-	yLoc = y;
-	orientation = PI / 4 + o;
-
-	arrowColor = ofColor(255, 50);
 	color = ofColor(0, 100, 255);
-}
-
-Entity::Entity()
-{
-	xLoc = 150;
-	yLoc = 150;
-	orientation = 0;
-
 	arrowColor = ofColor(255, 50);
-	color = ofColor(255, 50);
 }
 
-Entity::~Entity()
+Entity::Entity() : xLoc(100), yLoc(100), orientation(PI / 4)
 {
-	
+	color = ofColor(0, 100, 255);
+	arrowColor = ofColor(255, 50);
 }
+
+Entity::~Entity(){}
 
 void Entity::draw() const {
 
@@ -36,13 +25,13 @@ void Entity::draw() const {
 	ofRotateRad(orientation);
 
 	ofSetColor(color);
-	ofDrawRectangle(0, 0, SIZE, SIZE);
+	ofDrawRectangle(0, 0, size, size);
 
-	ofTranslate(SIZE, 0);
+	ofTranslate(size, 0);
 	ofSetColor(arrowColor);
 	ofDrawTriangle(p1, p2, p3);
 
-	ofTranslate(SIZE * -1, 0);
+	ofTranslate(size * -1, 0);
 	ofRotateRad(-1 * orientation);
 	ofTranslate(-1 * xLoc, -1 * yLoc);
 }
@@ -51,7 +40,7 @@ float* Entity::getBoundariesX() const {
 	float* result = new float[boundaryCount];
 
 	for (int i = 0; i < boundaryCount; i ++) {
-		result[i] = xLoc + sqrt(2) * SIZE * sin(i * PI / 2 - PI / 4 - orientation) / 2;
+		result[i] = xLoc + sqrt(2) * size * sin(i * PI / 2 - PI / 4 - orientation) / 2;
 	}
 
 	return result;
@@ -61,7 +50,7 @@ float* Entity::getBoundariesY() const {
 	float* result = new float[boundaryCount];
 
 	for (int i = 0; i < boundaryCount; i++) {
-		result[i] = yLoc + sqrt(2) * SIZE * cos(i * PI / 2 - PI / 4 - orientation) / 2;
+		result[i] = yLoc + sqrt(2) * size * cos(i * PI / 2 - PI / 4 - orientation) / 2;
 	}
 
 	return result;
@@ -99,8 +88,8 @@ bool Entity::hasCollided(const Entity& other) const {
 		float newX = cos(-otherOrientation) * x - sin(-otherOrientation) * y;
 		float newY = sin(-otherOrientation) * x + cos(-otherOrientation) * y;
 
-		if (newX >= -SIZE / 2 && newX <= SIZE / 2 &&
-			newY >= -SIZE / 2 && newY <= SIZE / 2) return true;
+		if (newX >= -size / 2 && newX <= size / 2 &&
+			newY >= -size / 2 && newY <= size / 2) return true;
 	}
 
 	return false;

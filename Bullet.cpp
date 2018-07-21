@@ -1,12 +1,7 @@
 #include "Bullet.h"
 
-Bullet::Bullet(float x, float y, float theta, int d) {
-	xLoc = x;
-	yLoc = y;
-	orientation = theta;
+Bullet::Bullet(float x, float y, float theta, int d) : xLoc(x), yLoc(y), orientation(theta), damage(d) {
 	distanceTraveled = 0;
-	damage = d;
-
 	speed = 8;
 	range = 1000;
 }

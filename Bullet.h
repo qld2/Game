@@ -2,9 +2,10 @@
 #include "Stopwatch.h"
 
 class Bullet {
-	float xLoc, yLoc, orientation, distanceTraveled;
-	float speed, range;
+	float xLoc, yLoc, orientation;
 	int damage;
+	float distanceTraveled, speed, range;
+	
 public:
 	Bullet(float x, float y, float theta, int damage);
 	~Bullet();

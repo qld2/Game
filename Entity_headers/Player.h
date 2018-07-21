@@ -6,13 +6,13 @@
 class Player :
 	public Entity	
 {
-	Gun* gun;
+	Gun gun;
 public:
 	Player(float x, float y, float o);
 	Player();
 	~Player();
 
-	Stopwatch* healthTimer;
+	Stopwatch healthTimer;
 	
 	void update() override;
 	void draw() const;

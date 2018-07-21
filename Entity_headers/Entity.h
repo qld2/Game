@@ -4,19 +4,19 @@
 
 class Entity
 {
-protected:
-	int translationalSpeed = 8;
-	float rotationalSpeed = PI / 50;
-	int SIZE = 50;
-	
-	int health = 0;
-	int maxHealth = 0;
-
+protected:	
 	float xLoc, yLoc;
 	float orientation;
+	
+	int translationalSpeed = 8;
+	float rotationalSpeed = PI / 50;
+	int size = 50;
 
-	ofColor arrowColor;
+	int maxHealth = 0;
+	int health = 0;
+
 	ofColor color;
+	ofColor arrowColor;
 
 	static const int boundaryCount = 4;
 	

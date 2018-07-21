@@ -3,25 +3,25 @@
 
 Player::Player(float x, float y, float o) : Entity(x, y, o)
 {
-	xLoc = x;
-	yLoc = y;
-	orientation = o;
 	health = 3;
 	maxHealth = 3;
 	translationalSpeed = 15;
 
 	color = ofColor(0, 100, 255);
-	gun = new Gun();
-	healthTimer = new Stopwatch();
+	gun = Gun();
+	healthTimer = Stopwatch();
 }
 
-Player::Player()
+Player::Player() : Entity(0, 0, 0)
 {
-	xLoc = 50;
-	yLoc = 50;
-	orientation = 0;
-}
+	health = 3;
+	maxHealth = 3;
+	translationalSpeed = 15;
 
+	color = ofColor(0, 100, 255);
+	gun = Gun();
+	healthTimer = Stopwatch();
+}
 
 Player::~Player()
 {
@@ -80,7 +80,7 @@ void Player::update()
 	} else if (ofGetKeyPressed('i')) shoot();
 	
 
-	gun->update();
+	gun.update();
 }
 
 void Player::updateHealth() {
@@ -88,7 +88,7 @@ void Player::updateHealth() {
 }
 
 void Player::draw() const {
-	gun->draw();
+	gun.draw();
 
 	Entity::draw();
 }
@@ -124,8 +124,8 @@ bool Player::checkWallBoundariesY(float* y, float deltaY) {
 bool Player::checkWallBoundariesO(float deltaO) {
 
 	for (float i = 0; i < 2 * PI; i += PI / 2) {
-		float newX = xLoc + sqrt(2) * SIZE * sin(i - PI / 4 - orientation - deltaO) / 2;
-		float newY = yLoc + sqrt(2) * SIZE * cos(i - PI / 4 - orientation - deltaO) / 2;
+		float newX = xLoc + sqrt(2) * size * sin(i - PI / 4 - orientation - deltaO) / 2;
+		float newY = yLoc + sqrt(2) * size * cos(i - PI / 4 - orientation - deltaO) / 2;
 
 		if (newX <= 0 || newX >= ofGetScreenWidth()) return false;
 		if (newY <= 0 || newY >= ofGetScreenHeight()) return false;
@@ -148,11 +148,11 @@ void Player::reachBoundary(float* x, float* y, float deltaX, float deltaY) {
 }
 
 void Player::shoot() {
-	gun->shoot(xLoc, yLoc, orientation);
+	gun.shoot(xLoc, yLoc, orientation);
 }
 
 vector<Bullet>& Player::getBullets() {
-	return gun->getBullets();
+	return gun.getBullets();
 }
 
 int Player::getHealth() const {

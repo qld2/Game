@@ -7,12 +7,13 @@ class Enemy :
 {
 public:
 	Enemy(float x, float y, float o, Player& p);
+	Enemy();
 	~Enemy();
 
 	void update();
-	void draw();
+	void draw() const;
 
-	bool hasDied();
+	bool hasDied() const;
 private:
 	Player& player;
 
