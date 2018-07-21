@@ -13,7 +13,7 @@ int gamestate;
 	ofVec3f a, b, c;
 
 	int enemiesRemaining;
-	const int MAX_ENEMIES = 30;
+	const int MAX_ENEMIES = 100;
 	vector<Enemy*> enemies;
 
 public:

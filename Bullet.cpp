@@ -8,12 +8,15 @@ Bullet::Bullet(float x, float y, float theta, int d) {
 	damage = d;
 
 	speed = 8;
-	range = 400;
+	range = 1000;
 }
 
 Bullet::~Bullet() {
 
 }
+
+//---------------------------------------------------------------------------
+
 
 void Bullet::update() {
 	float deltaX = speed * cos(orientation);
@@ -29,22 +32,25 @@ void Bullet::draw() const {
 	ofDrawRectangle(xLoc, yLoc, 20, 20);
 }
 
-bool Bullet::hasExpired() {
+//---------------------------------------------------------------------------
+
+
+float Bullet::getX() const {
+	return xLoc;
+}
+
+float Bullet::getY() const {
+	return yLoc;
+}
+
+int Bullet::getDamage() const {
+	return damage;
+}
+
+bool Bullet::hasExpired() const {
 	if (distanceTraveled > range) {
 		return true;
 	}
 
 	return false;
-}
-
-float Bullet::getX() {
-	return xLoc;
-}
-
-float Bullet::getY() {
-	return yLoc;
-}
-
-int Bullet::getDamage() {
-	return damage;
 }

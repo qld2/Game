@@ -10,7 +10,7 @@ Player::Player(float x, float y, float o) : Entity(x, y, o)
 	maxHealth = 3;
 	translationalSpeed = 15;
 
-	color = new ofColor(0, 100, 255);
+	color = ofColor(0, 100, 255);
 	gun = new Gun();
 	healthTimer = new Stopwatch();
 }
@@ -151,7 +151,7 @@ void Player::shoot() {
 	gun->shoot(xLoc, yLoc, orientation);
 }
 
-vector<Bullet*>& Player::getBullets() {
+vector<Bullet>& Player::getBullets() {
 	return gun->getBullets();
 }
 

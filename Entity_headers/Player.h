@@ -20,7 +20,7 @@ public:
 	void drawHealthBar() const;
 	void shoot();
 
-	vector<Bullet*>& getBullets();
+	vector<Bullet>& getBullets();
 	int getHealth() const;
 private:
 	bool checkWallBoundariesX(float* x, float newX);

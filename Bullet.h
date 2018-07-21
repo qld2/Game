@@ -10,11 +10,12 @@ public:
 	~Bullet();
 
 	void update();
+
 	void draw() const;
 
-	bool hasExpired();
+	float getX() const;
+	float getY() const;
+	int getDamage() const;
 
-	float getX();
-	float getY();
-	int getDamage();
+	bool hasExpired() const;
 };

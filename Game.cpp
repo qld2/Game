@@ -15,7 +15,7 @@ void Game::setup() {
 	player = Player(400, 400, 0);
 	c1 = Stopwatch();
 	
-	enemiesRemaining = 10;
+	enemiesRemaining = 45;
 
 }
 
@@ -66,7 +66,7 @@ void Game::keyReleased(int key) {
 
 void Game::updateRound() {
 	float t = c1.read();
-	if (t > 1.5 && enemiesRemaining > 0) {
+	if (t > .5 && enemiesRemaining > 0) {
 		spawnEnemy();
 		c1.reset();
 		enemiesRemaining--;
@@ -79,12 +79,13 @@ void Game::updateRound() {
 
 void Game::spawnEnemy() {
 	if (enemies.size() < MAX_ENEMIES) {
-		if (ofRandomf() < -.3) {
-			enemies.push_back(new Enemy(a.x, a.y, 0, &player));
-		} else if (ofRandomf() > -.3 && ofRandomf() < .3) {
-			enemies.push_back(new Enemy(b.x, b.y, 0, &player));
-		} else 	if (ofRandomf() > .3) {
-			enemies.push_back(new Enemy(c.x, c.y, 0, &player));
+		float random = ofRandomf();
+		if (random < -.3) {
+			enemies.push_back(new Enemy(a.x, a.y, 0, player));
+		} else if (random > -.3 && random < .3) {
+			enemies.push_back(new Enemy(b.x, b.y, 0, player));
+		} else 	if (random > .3) {
+			enemies.push_back(new Enemy(c.x, c.y, 0, player));
 		}
 	}
 }

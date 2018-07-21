@@ -7,8 +7,8 @@ Entity::Entity(float x, float y, float o)
 	yLoc = y;
 	orientation = PI / 4 + o;
 
-	arrowColor = new ofColor(255, 50);
-	color = new ofColor(0, 100, 255);
+	arrowColor = ofColor(255, 50);
+	color = ofColor(0, 100, 255);
 }
 
 Entity::Entity()
@@ -17,14 +17,13 @@ Entity::Entity()
 	yLoc = 150;
 	orientation = 0;
 
-	arrowColor = new ofColor(255, 50);
-	color = new ofColor(255, 50);
+	arrowColor = ofColor(255, 50);
+	color = ofColor(255, 50);
 }
 
 Entity::~Entity()
 {
-	delete arrowColor;
-	delete color;
+	
 }
 
 void Entity::draw() const {
@@ -36,11 +35,11 @@ void Entity::draw() const {
 	ofTranslate(xLoc, yLoc);
 	ofRotateRad(orientation);
 
-	ofSetColor(*color);
+	ofSetColor(color);
 	ofDrawRectangle(0, 0, SIZE, SIZE);
 
 	ofTranslate(SIZE, 0);
-	ofSetColor(*arrowColor);
+	ofSetColor(arrowColor);
 	ofDrawTriangle(p1, p2, p3);
 
 	ofTranslate(SIZE * -1, 0);
@@ -86,12 +85,12 @@ void Entity::refreshOrientation() {
 	if (orientation < 0) orientation += 2 * PI;
 }
 
-bool Entity::hasCollided(Entity* other) {
+bool Entity::hasCollided(const Entity& other) const {
 	float* xBoundaries = getBoundariesX();
 	float* yBoundaries = getBoundariesY();
-	float otherXLoc = other->getX();
-	float otherYLoc = other->getY();
-	float otherOrientation = other->getO();
+	float otherXLoc = other.getX();
+	float otherYLoc = other.getY();
+	float otherOrientation = other.getO();
 
 	for (int i = 0; i < boundaryCount; i++) {
 		int x = xBoundaries[i] - otherXLoc;
@@ -107,9 +106,9 @@ bool Entity::hasCollided(Entity* other) {
 	return false;
 }
 
-float Entity::distanceTo(Entity* other) {
-	float xLoc2 = other->getX();
-	float yLoc2 = other->getY();
+float Entity::distanceTo(const Entity& other) const {
+	float xLoc2 = other.getX();
+	float yLoc2 = other.getY();
 
 	return sqrt(pow((xLoc2 - xLoc), 2) + pow((yLoc2 - yLoc), 2));
 }

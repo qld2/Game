@@ -15,12 +15,12 @@ protected:
 	float xLoc, yLoc;
 	float orientation;
 
-	ofColor* arrowColor;
-	ofColor* color;
+	ofColor arrowColor;
+	ofColor color;
 
 	static const int boundaryCount = 4;
 	
-	float distanceTo(Entity* other);
+	float distanceTo(const Entity& other) const;
 	void refreshOrientation();
 	//virtual void drawHealthBar() = 0;
 public:
@@ -37,6 +37,6 @@ public:
 	void draw() const;
 	virtual void update() = 0;
 
-	bool hasCollided(Entity* other);
+	bool hasCollided(const Entity& other) const;
 };
 
