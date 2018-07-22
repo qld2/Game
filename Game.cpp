@@ -2,20 +2,15 @@
 
 
 void Game::setup() {
-	gamestate = 0;
-
-	a = ofVec3f(300, 300, 0);
-	b = ofVec3f(300, 800, 0);
-	c = ofVec3f(1600, 900, 0);
 
 	ofBackground(0);
 	ofSetRectMode(OF_RECTMODE_CENTER);
 	ofSetFrameRate(60);
 
+	gamestate = 0;
+
 	player = Player(400, 400, 0);
-	c1 = Stopwatch();
-	
-	enemiesRemaining = 45;
+	roundcontrol = Roundcontroller(player);
 
 }
 
@@ -30,7 +25,7 @@ void Game::update() {
 			gamestate = 2;
 		}
 
-		updateRound();
+		roundcontrol.updateRound();
 
 		updateGame();
 	}
@@ -64,32 +59,6 @@ void Game::keyReleased(int key) {
 
 }
 
-void Game::updateRound() {
-	float t = c1.read();
-	if (t > .5 && enemiesRemaining > 0) {
-		spawnEnemy();
-		c1.reset();
-		enemiesRemaining--;
-	}
-	
-	if (enemiesRemaining == 0 && enemies.size() == 0) {
-		enemiesRemaining = 10;
-	}
-}
-
-void Game::spawnEnemy() {
-	if (enemies.size() < MAX_ENEMIES) {
-		float random = ofRandomf();
-		if (random < -.3) {
-			enemies.push_back(new Enemy(a.x, a.y, 0, player));
-		} else if (random > -.3 && random < .3) {
-			enemies.push_back(new Enemy(b.x, b.y, 0, player));
-		} else 	if (random > .3) {
-			enemies.push_back(new Enemy(c.x, c.y, 0, player));
-		}
-	}
-}
-
 //-----------------------------------------------------------------------
 void Game::updateStartScreen() {
 
@@ -97,18 +66,7 @@ void Game::updateStartScreen() {
 
 void Game::updateGame() {
 
-	for (int i = enemies.size() - 1; i >= 0; i--) {
-		if (enemies[i]->hasDied()) {
-			enemies[i] = enemies.back();
-			enemies.pop_back();
-			i--;
-		}
-	}
-
-	for (int i = 0; i < enemies.size(); i++) {
-		enemies[i]->update();
-	}
-
+	roundcontrol.update();
 	player.update();
 }
 
@@ -125,14 +83,7 @@ void Game::drawStartScreen() const {
 void Game::drawGame() const {
 	player.draw();
 
-	ofSetColor(0, 128, 128);
-	ofDrawRectangle(a.x, a.y, 25, 25);
-	ofDrawRectangle(b.x, b.y, 25, 25);
-	ofDrawRectangle(c.x, c.y, 25, 25);
-
-	for (int i = 0; i < enemies.size(); i++) {
-		enemies[i]->draw();
-	}
+	roundcontrol.draw();
 
 	player.drawHealthBar();
 }
