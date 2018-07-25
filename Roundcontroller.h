@@ -10,11 +10,12 @@ class Roundcontroller {
 	Stopwatch c1;
 	ofVec3f a, b, c;
 
-	Player& player;
+	Player* player;
 	vector<Enemy> enemies;
 
 public:
-	Roundcontroller(Player& player);
+	Roundcontroller(Player* player);
+	Roundcontroller();
 	~Roundcontroller();
 
 	void update();

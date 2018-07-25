@@ -1,6 +1,6 @@
 #include "Roundcontroller.h"
 
-Roundcontroller::Roundcontroller(Player& player) : player(player) {
+Roundcontroller::Roundcontroller(Player* player) : player(player) {
 	enemiesRemaining = 45;
 
 	c1 = Stopwatch();
@@ -9,6 +9,16 @@ Roundcontroller::Roundcontroller(Player& player) : player(player) {
 	b = ofVec3f(300, 800, 0);
 	c = ofVec3f(1600, 900, 0);
 
+}
+
+Roundcontroller::Roundcontroller() : player(new Player(100, 100, 0)) {
+	enemiesRemaining = 45;
+
+	c1 = Stopwatch();
+
+	a = ofVec3f(300, 300, 0);
+	b = ofVec3f(300, 800, 0);
+	c = ofVec3f(1600, 900, 0);
 }
 
 Roundcontroller::~Roundcontroller() {

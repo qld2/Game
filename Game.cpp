@@ -10,7 +10,7 @@ void Game::setup() {
 	gamestate = 0;
 
 	player = Player(400, 400, 0);
-	roundcontrol = Roundcontroller(player);
+	roundcontrol = Roundcontroller(&player);
 
 }
 

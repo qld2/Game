@@ -1,7 +1,7 @@
 #include "..\Entity_headers\Enemy.h"
 #include "..\Entity_headers\Player.h"
 
-Enemy::Enemy(float x, float y, float o, Player& p) : Entity(x, y, o), player(p)
+Enemy::Enemy(float x, float y, float o, Player* p) : Entity(x, y, o), player(p)
 {
 
 	translationalSpeed = 2;
@@ -13,7 +13,7 @@ Enemy::Enemy(float x, float y, float o, Player& p) : Entity(x, y, o), player(p)
 	color = ofColor(255, 100, 0);
 }
 
-Enemy::Enemy() : Entity(100, 100, PI/4), player(Player(100, 100, PI / 4))
+Enemy::Enemy() : Entity(100, 100, PI/4), player(new Player(100, 100, PI / 4))
 {
 
 	translationalSpeed = 2;
@@ -33,11 +33,11 @@ void Enemy::update() {
 	refreshOrientation();
 
 	if (checkForCollision()) {
-		player.updateHealth();
+		player->updateHealth();
 	}
 	
-	float x = player.getX() - xLoc;
-	float y = player.getY() - yLoc;
+	float x = player->getX() - xLoc;
+	float y = player->getY() - yLoc;
 	float newO = atan2(y, x);
 
 	float n = sin(-orientation) * cos(newO) + cos(-orientation) * sin(newO);
@@ -76,9 +76,9 @@ void Enemy::drawHealthBar() const {
 
 bool Enemy::checkForCollision() {
 
-	if (distanceTo(player) <= sqrt(2) * size && (player.healthTimer.read() > 2)) {
-		if (hasCollided(player) || player.hasCollided(*this)) {
-			player.healthTimer.reset();
+	if (distanceTo(*player) <= sqrt(2) * size && (player->healthTimer.read() > 2)) {
+		if (hasCollided(*player) || player->hasCollided(*this)) {
+			player->healthTimer.reset();
 			return true;
 		}
 	}
@@ -88,7 +88,7 @@ bool Enemy::checkForCollision() {
 }
 
 bool Enemy::checkForBullets() {
-	vector<Bullet>& bullets = player.getBullets();
+	vector<Bullet>& bullets = player->getBullets();
 
 	for (int i = 0; i < bullets.size(); i++) {
 		if (sqrt(pow(bullets[i].getX() - xLoc,2) + pow(bullets[i].getY() - yLoc,2)) < 25) {

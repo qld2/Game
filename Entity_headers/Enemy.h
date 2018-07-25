@@ -6,7 +6,7 @@ class Enemy :
 	public Entity
 {
 public:
-	Enemy(float x, float y, float o, Player& p);
+	Enemy(float x, float y, float o, Player* p);
 	Enemy();
 	~Enemy();
 
@@ -15,7 +15,7 @@ public:
 
 	bool hasDied() const;
 private:
-	Player& player;
+	Player * player;
 
 	void drawHealthBar() const;
 	bool checkForCollision();
