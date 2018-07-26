@@ -4,13 +4,16 @@
 #include "Entity_headers\Player.h"
 
 class Roundcontroller {
-	int enemiesRemaining;
-	int MAX_ENEMIES = 100;
+	Player* player;
 
 	Stopwatch c1;
-	ofVec3f a, b, c;
+	float spawnTimeGap, roundTimeGap;
 
-	Player* player;
+	int round;
+	int enemiesRemaining, enemiesPerRound;
+	int MAX_ENEMIES = 100;
+
+	vector<ofVec2f> spawnPoints;
 	vector<Enemy> enemies;
 
 public:
@@ -24,5 +27,6 @@ public:
 
 private:
 	void spawnEnemy();
-
+	void moveSpawns();
+	void endRound();
 };
