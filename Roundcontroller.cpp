@@ -14,6 +14,9 @@ Roundcontroller::Roundcontroller(Player* player) : player(player) {
 	for (int i = 0; i < 4; i++) {
 		spawnPoints.push_back(ofVec2f(ofGetScreenWidth() / 2, ofGetScreenHeight() / 2));
 	}
+
+	sC[0] = &spawnConfigOne;
+	sC[1] = &spawnConfigTwo;
 }
 
 Roundcontroller::Roundcontroller() : player(new Player(100, 100, 0)) {
@@ -99,12 +102,15 @@ void Roundcontroller::spawnEnemy() {
 }
 
 void Roundcontroller::moveSpawns() {
-	static Stopwatch watch = Stopwatch();
-	float t = watch.read();
+	static float random = abs(ofRandomf());
+	static int r = round;
 
-	for (int i = 0; i < spawnPoints.size(); i++) {
-		spawnPoints[i].x = ofGetScreenWidth() / 2 + 250 * i * cos(t);
-		spawnPoints[i].y = ofGetScreenHeight() / 2 + 100 * i * sin(t);
+	for (float i = 0; i < 2; i++) {
+
+		if (random > i / 2 && random <= (i + 1) / 2) {
+			(*sC[(int) i])();
+		}
+
 	}
 }
 
@@ -125,4 +131,24 @@ void Roundcontroller::endRound() {
 	}
 
 	enemiesRemaining = enemiesPerRound;
+}
+
+void Roundcontroller::spawnConfigOne() {
+	static Stopwatch watch = Stopwatch();
+	float t = watch.read();
+
+	for (int i = 0; i < spawnPoints.size(); i++) {
+		spawnPoints[i].x = ofGetScreenWidth() / 2 + 250 * i * cos(t);
+		spawnPoints[i].y = ofGetScreenHeight() / 2 + 100 * i * sin(t);
+	}
+}
+
+void Roundcontroller::spawnConfigTwo() {
+	static Stopwatch watch = Stopwatch();
+	float t = watch.read();
+
+	for (int i = 0; i < spawnPoints.size(); i++) {
+		spawnPoints[i].x = ofGetScreenWidth() / 2 - 250 * i * cos(t);
+		spawnPoints[i].y = ofGetScreenHeight() / 2 + 100 * i * sin(t);
+	}
 }

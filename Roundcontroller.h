@@ -16,6 +16,10 @@ class Roundcontroller {
 	vector<ofVec2f> spawnPoints;
 	vector<Enemy> enemies;
 
+	vector<void(Roundcontroller::*)()> spawnConfigs;
+	
+	void(*Roundcontroller::sC[2])();
+
 public:
 	Roundcontroller(Player* player);
 	Roundcontroller();
@@ -29,4 +33,7 @@ private:
 	void spawnEnemy();
 	void moveSpawns();
 	void endRound();
+
+	void spawnConfigOne();
+	void spawnConfigTwo();
 };
