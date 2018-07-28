@@ -2,6 +2,7 @@
 #include "ofMain.h"
 #include "Entity_headers\Enemy.h"
 #include "Entity_headers\Player.h"
+#include "../SpawnController.h"
 
 class Roundcontroller {
 	Player* player;
@@ -13,12 +14,10 @@ class Roundcontroller {
 	int enemiesRemaining, enemiesPerRound;
 	int MAX_ENEMIES = 100;
 
+	SpawnController spawnController;
 	vector<ofVec2f> spawnPoints;
 	vector<Enemy> enemies;
-
-	vector<void(Roundcontroller::*)()> spawnConfigs;
 	
-	void(*Roundcontroller::sC[2])();
 
 public:
 	Roundcontroller(Player* player);
@@ -33,7 +32,4 @@ private:
 	void spawnEnemy();
 	void moveSpawns();
 	void endRound();
-
-	void spawnConfigOne();
-	void spawnConfigTwo();
 };
