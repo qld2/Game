@@ -1,6 +1,6 @@
 #include "Roundcontroller.h"
 
-Roundcontroller::Roundcontroller(Player* player) : player(player), spawnController(&spawnPoints) {
+Roundcontroller::Roundcontroller(Player* player) : player(player), spawnController(SpawnController(0, spawnPoints)) {
 	c1 = Stopwatch();
 	spawnTimeGap = 2;
 	roundTimeGap = 5;
@@ -9,15 +9,16 @@ Roundcontroller::Roundcontroller(Player* player) : player(player), spawnControll
 	enemiesPerRound = 10;
 	enemiesRemaining = enemiesPerRound;
 	
-	spawnPoints = vector<ofVec2f>();
-	spawnController = &spawnPoints;
+	spawnPointCount = 4;
+	spawnPoints = new ofVec2f[spawnPointCount];
+	spawnController = SpawnController(spawnPointCount, spawnPoints);
 
-	for (int i = 0; i < 4; i++) {
-		spawnPoints.push_back(ofVec2f(ofGetScreenWidth() / 2, ofGetScreenHeight() / 2));
+	for (int i = 0; i < spawnPointCount; i++) {
+		spawnPoints[i] = ofVec2f(ofGetScreenWidth() / 2, ofGetScreenHeight() / 2);
 	}
 }
 
-Roundcontroller::Roundcontroller() : player(new Player(100, 100, 0)), spawnController(&spawnPoints) {
+Roundcontroller::Roundcontroller() : player(new Player(100, 100, 0)), spawnController(SpawnController(0, spawnPoints)) {
 	c1 = Stopwatch();
 	spawnTimeGap = 2;
 	roundTimeGap = 5;
@@ -26,10 +27,12 @@ Roundcontroller::Roundcontroller() : player(new Player(100, 100, 0)), spawnContr
 	enemiesPerRound = 10;
 	enemiesRemaining = enemiesPerRound;
 
-	spawnPoints = vector<ofVec2f>();
+	spawnPointCount = 0;
+	spawnPoints = new ofVec2f[spawnPointCount];
+	spawnController = SpawnController(spawnPointCount, spawnPoints);
 
-	for (int i = 0; i < 4; i++) {
-		spawnPoints.push_back(ofVec2f(ofGetScreenWidth() / 2, ofGetScreenHeight() / 2));
+	for (int i = 0; i < spawnPointCount; i++) {
+		spawnPoints[i] = ofVec2f(ofGetScreenWidth() / 2, ofGetScreenHeight() / 2);
 	}
 }
 
@@ -57,7 +60,7 @@ void Roundcontroller::update() {
 void Roundcontroller::draw() const {
 	ofSetColor(0, 128, 128);
 
-	for (int i = 0; i < spawnPoints.size(); i++) {
+	for (int i = 0; i < spawnPointCount; i++) {
 		ofDrawRectangle(spawnPoints[i].x, spawnPoints[i].y, 25, 25);
 	}
 
@@ -89,10 +92,10 @@ void Roundcontroller::spawnEnemy() {
 	if (enemies.size() < MAX_ENEMIES) {
 		float random = abs(ofRandomf());
 
-		for (float i = 0; i < spawnPoints.size(); i++) {
+		for (float i = 0; i < spawnPointCount; i++) {
 
-			if (random > i / spawnPoints.size() && random <= (i + 1) / spawnPoints.size()) {
-				enemies.push_back(Enemy(spawnPoints[i].x, spawnPoints[i].y, 0, player));
+			if (random > i / spawnPointCount && random <= (i + 1) / spawnPointCount) {
+				enemies.push_back(Enemy(spawnPoints[(int) i].x, spawnPoints[(int) i].y, 0, player));
 			}
 
 		}
@@ -100,6 +103,7 @@ void Roundcontroller::spawnEnemy() {
 }
 
 void Roundcontroller::moveSpawns() {
+	cout << spawnPointCount << " " << endl;
 	spawnController.moveSpawns(2);
 }
 

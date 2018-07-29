@@ -15,7 +15,8 @@ class Roundcontroller {
 	int MAX_ENEMIES = 100;
 
 	SpawnController spawnController;
-	vector<ofVec2f> spawnPoints;
+	int spawnPointCount = 4;
+	ofVec2f* spawnPoints;
 	vector<Enemy> enemies;
 	
 
