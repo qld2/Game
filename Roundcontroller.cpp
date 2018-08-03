@@ -6,7 +6,7 @@ Roundcontroller::Roundcontroller(Player* player) : player(player), spawnControll
 	roundTimeGap = 5;
 
 	round = 1;
-	enemiesPerRound = 10;
+	enemiesPerRound = 4;
 	enemiesRemaining = enemiesPerRound;
 	
 	spawnPointCount = 4;
@@ -16,6 +16,8 @@ Roundcontroller::Roundcontroller(Player* player) : player(player), spawnControll
 	for (int i = 0; i < spawnPointCount; i++) {
 		spawnPoints[i] = ofVec2f(ofGetScreenWidth() / 2, ofGetScreenHeight() / 2);
 	}
+
+	spawnController.setConfiguration(1);
 }
 
 Roundcontroller::Roundcontroller() : player(new Player(100, 100, 0)), spawnController(SpawnController(0, spawnPoints)) {
@@ -104,7 +106,7 @@ void Roundcontroller::spawnEnemy() {
 
 void Roundcontroller::moveSpawns() {
 	cout << spawnPointCount << " " << endl;
-	spawnController.moveSpawns(2);
+	spawnController.moveSpawns();
 }
 
 void Roundcontroller::endRound() {
@@ -124,4 +126,6 @@ void Roundcontroller::endRound() {
 	}
 
 	enemiesRemaining = enemiesPerRound;
+
+	spawnController.setConfiguration(round);
 }
