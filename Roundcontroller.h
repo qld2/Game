@@ -2,7 +2,7 @@
 #include "ofMain.h"
 #include "Entity_headers\Enemy.h"
 #include "Entity_headers\Player.h"
-#include "../SpawnController.h"
+#include "SpawnController.h"
 
 class Roundcontroller {
 	Player* player;
