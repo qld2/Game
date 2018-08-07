@@ -3,11 +3,15 @@
 #include "Entity_headers\Enemy.h"
 #include "Roundcontroller.h"
 #include "Stopwatch.h"
+#include "GUI.h"
 
 class Game : public ofBaseApp
 {
+	ofTrueTypeFont verdana14;
+
 	int gamestate;
 
+	GUI outline;
 	Player player;
 	Roundcontroller roundcontrol;
 

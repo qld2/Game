@@ -29,6 +29,8 @@ public:
 	void updateRound();
 	void draw() const;
 
+	int getRound();
+
 private:
 	void spawnEnemy();
 	void moveSpawns();

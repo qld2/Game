@@ -129,3 +129,7 @@ void Roundcontroller::endRound() {
 
 	spawnController.setConfiguration(round);
 }
+
+int Roundcontroller::getRound() {
+	return round;
+}
