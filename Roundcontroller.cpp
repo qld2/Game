@@ -18,6 +18,9 @@ Roundcontroller::Roundcontroller(Player* player) : player(player), spawnControll
 	}
 
 	spawnController.setConfiguration(1);
+
+	roundNumDisplay.load("sixty.ttf", 60, true, true);
+	enemyCountDisplay.load("sixty.ttf", 30, true, true);
 }
 
 Roundcontroller::Roundcontroller() : player(new Player(100, 100, 0)), spawnController(SpawnController(0, spawnPoints)) {
@@ -36,6 +39,8 @@ Roundcontroller::Roundcontroller() : player(new Player(100, 100, 0)), spawnContr
 	for (int i = 0; i < spawnPointCount; i++) {
 		spawnPoints[i] = ofVec2f(ofGetScreenWidth() / 2, ofGetScreenHeight() / 2);
 	}
+
+	cout << roundNumDisplay.load("sixty.ttf", 60, true, true);
 }
 
 Roundcontroller::~Roundcontroller() {
@@ -69,6 +74,17 @@ void Roundcontroller::draw() const {
 	for (int i = 0; i < enemies.size(); i++) {
 		enemies[i].draw();
 	}
+}
+
+void Roundcontroller::drawGUI() const {
+	stringstream ss1, ss2;
+	ss1 << round;
+
+	ss2 << "Enemies Remaining: " << enemiesRemaining + enemies.size();
+
+	ofSetColor(255, 0, 0);
+	roundNumDisplay.drawString(ss1.str(), 100, 900);
+	enemyCountDisplay.drawString(ss2.str(), 1500, 65);
 }
 
 void Roundcontroller::updateRound() {

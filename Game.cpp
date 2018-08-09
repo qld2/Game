@@ -5,9 +5,9 @@ void Game::setup() {
 
 	ofTrueTypeFont::setGlobalDpi(72);
 
-	cout << verdana14.load("verdana.ttf", 14, true, true);
-	verdana14.setLineHeight(18.0f);
-	verdana14.setLetterSpacing(1.037);
+	scifibit35.load("scifibit.ttf", 35, true, true);
+	scifibit35.setLineHeight(18.0f);
+	scifibit35.setLetterSpacing(1.037);
 
 	ofBackground(0);
 	ofSetRectMode(OF_RECTMODE_CENTER);
@@ -17,7 +17,6 @@ void Game::setup() {
 
 	player = Player(400, 400, 0);
 	roundcontrol = Roundcontroller(&player);
-	outline = GUI(&roundcontrol);
 }
 
 void Game::update() {
@@ -32,7 +31,6 @@ void Game::update() {
 		}
 
 		roundcontrol.updateRound();
-		outline.update();
 		updateGame();
 	}
 	else if (gamestate == 2) {
@@ -49,7 +47,7 @@ void Game::draw(){
 	}
 	else if (gamestate == 1) {
 		drawGame();
-		//outline.draw();
+		drawGUI();
 	}
 	else if (gamestate == 2) {
 		drawGame();
@@ -83,7 +81,7 @@ void Game::updateGameOver() {
 
 //--------------------------------------------------------------------
 void Game::drawStartScreen() const {
-	verdana14.drawString("Press any key to begin", 100, 100);
+	scifibit35.drawString("Press any key to begin", 100, 100);
 }
 
 void Game::drawGame() const {
@@ -96,8 +94,11 @@ void Game::drawGame() const {
 
 void Game::drawGameOver() const {
 	ofClear(0);
-	ofDrawBitmapString("Game Over", 100, 100);
+	scifibit35.drawString("Game Over", 100, 100);
 }
 
-
+void Game::drawGUI() const {
+	roundcontrol.drawGUI();
+	
+}
 

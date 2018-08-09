@@ -19,6 +19,8 @@ class Roundcontroller {
 	ofVec2f* spawnPoints;
 	vector<Enemy> enemies;
 	
+	ofTrueTypeFont roundNumDisplay;
+	ofTrueTypeFont enemyCountDisplay;
 
 public:
 	Roundcontroller(Player* player);
@@ -28,6 +30,7 @@ public:
 	void update();
 	void updateRound();
 	void draw() const;
+	void drawGUI() const;
 
 	int getRound();
 
