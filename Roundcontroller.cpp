@@ -40,7 +40,7 @@ Roundcontroller::Roundcontroller() : player(new Player(100, 100, 0)), spawnContr
 		spawnPoints[i] = ofVec2f(ofGetScreenWidth() / 2, ofGetScreenHeight() / 2);
 	}
 
-	cout << roundNumDisplay.load("sixty.ttf", 60, true, true);
+	roundNumDisplay.load("sixty.ttf", 60, true, true);
 }
 
 Roundcontroller::~Roundcontroller() {
@@ -83,8 +83,8 @@ void Roundcontroller::drawGUI() const {
 	ss2 << "Enemies Remaining: " << enemiesRemaining + enemies.size();
 
 	ofSetColor(255, 0, 0);
-	roundNumDisplay.drawString(ss1.str(), 100, 900);
-	enemyCountDisplay.drawString(ss2.str(), 1500, 65);
+	roundNumDisplay.drawString(ss1.str(), 100, ofGetScreenHeight() - 100);
+	enemyCountDisplay.drawString(ss2.str(), ofGetScreenWidth() - 350, 65);
 }
 
 void Roundcontroller::updateRound() {
@@ -121,7 +121,6 @@ void Roundcontroller::spawnEnemy() {
 }
 
 void Roundcontroller::moveSpawns() {
-	cout << spawnPointCount << " " << endl;
 	spawnController.moveSpawns();
 }
 

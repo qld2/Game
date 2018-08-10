@@ -93,6 +93,11 @@ void Player::draw() const {
 	Entity::draw();
 }
 
+void Player::drawGUI() const {
+	drawHealthBar();
+	gun.drawGUI();
+}
+
 void Player::drawHealthBar() const {
 	float fullLength = 500;
 	float length = health * fullLength / maxHealth;

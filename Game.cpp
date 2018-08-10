@@ -88,8 +88,6 @@ void Game::drawGame() const {
 	player.draw();
 
 	roundcontrol.draw();
-
-	player.drawHealthBar();
 }
 
 void Game::drawGameOver() const {
@@ -99,6 +97,6 @@ void Game::drawGameOver() const {
 
 void Game::drawGUI() const {
 	roundcontrol.drawGUI();
-	
+	player.drawGUI();
 }
 

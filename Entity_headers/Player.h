@@ -16,8 +16,11 @@ public:
 	
 	void update() override;
 	void draw() const;
+	void drawGUI() const;
+
 	void updateHealth();
-	void drawHealthBar() const;
+	
+	
 	void shoot();
 
 	vector<Bullet>& getBullets();
@@ -27,6 +30,7 @@ private:
 	bool checkWallBoundariesY(float* y, float newY);
 	bool checkWallBoundariesO(float deltaO);
 	void reachBoundary(float* x, float* y, float deltaX, float deltaY);
-
+	
+	void drawHealthBar() const;
 };
 
