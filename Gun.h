@@ -6,15 +6,6 @@
 class Gun {
 
 	Stopwatch fireTimer;
-	float fireGap = 1;
-
-	Stopwatch reloadTimer;
-	float reloadTime = 2;
-
-	int MAX_EXISTING = 15;
-	int clipSize = 20;
-	int bulletsOnPlayer = 200;
-	int bulletsInClip = clipSize;
 	vector<Bullet> bullets;
 	
 	ofTrueTypeFont gunGUI;
@@ -31,5 +22,17 @@ public:
 	void reload();
 
 	vector<Bullet>& getBullets();
+
+protected:
+	string name;
+
+	float fireGap;
+	float reloadTime;
+
+	int clipSize;
+	int bulletsOnPlayer;
+	int bulletsInClip;
+
+	float bulletRandomness;
 };
 

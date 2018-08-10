@@ -1,7 +1,7 @@
 #pragma once
 #include "Entity.h"
 #include "..\Stopwatch.h"
-#include "..\Gun.h"
+#include "..\Guns.h"
 
 class Player :
 	public Entity	

@@ -8,7 +8,7 @@ Player::Player(float x, float y, float o) : Entity(x, y, o)
 	translationalSpeed = 15;
 
 	color = ofColor(0, 100, 255);
-	gun = Gun();
+	gun = Flamethrower();
 	healthTimer = Stopwatch();
 }
 

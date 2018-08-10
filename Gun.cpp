@@ -3,8 +3,7 @@
 Gun::Gun()
 {
 	fireTimer = Stopwatch();
-	reloadTimer = Stopwatch();
-	gunGUI.load("scifibit.ttf", 40, true, true);
+	gunGUI.load("scifibit.ttf", 30, true, true);
 }
 
 
@@ -41,27 +40,31 @@ void Gun::drawGUI() const {
 	stringstream ss1;
 	ss1 << bulletsInClip << " : " << bulletsOnPlayer;
 	
-	gunGUI.drawString(ss1.str(), ofGetScreenWidth() - 200, ofGetScreenHeight() - 100);
+	gunGUI.drawString(ss1.str(), ofGetScreenWidth() - 400, ofGetScreenHeight() - 100);
+
+	gunGUI.drawString(name, ofGetScreenWidth() - 400, ofGetScreenHeight() - 200);
 }
 
 void Gun::shoot(float x, float y, float o) {
 	if (fireTimer.read() > fireGap && bulletsInClip > 0) {
-		bullets.push_back(Bullet(x, y, o, 4));
+		float randomAdjustment = ofRandomf() * bulletRandomness;
+
+		bullets.push_back(Bullet(x, y, o + randomAdjustment, 10));
 		fireTimer.reset();
 		bulletsInClip--;
 	}
 }
 
 void Gun::reload() {
-	static Stopwatch reloadTimer2 = Stopwatch();
+	static Stopwatch reloadTimer = Stopwatch();
 	static bool reloading = false;
 
 	if (!reloading) {
-		reloadTimer2.reset();
+		reloadTimer.reset();
 		reloading = true;
 	}
 
-	if (reloadTimer2.read() > reloadTime) {
+	if (reloadTimer.read() > reloadTime) {
 		if (bulletsOnPlayer < clipSize) {
 			bulletsInClip = bulletsOnPlayer;
 			bulletsOnPlayer = 0;
