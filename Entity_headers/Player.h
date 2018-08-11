@@ -1,12 +1,13 @@
 #pragma once
 #include "Entity.h"
 #include "..\Stopwatch.h"
-#include "..\Guns.h"
+#include "..\Gun_headers\Guns.h"
 
 class Player :
 	public Entity	
 {
-	Gun gun;
+	Gun* guns = new Gun[3];
+	int currentGun;
 public:
 	Player(float x, float y, float o);
 	Player();
@@ -20,6 +21,8 @@ public:
 
 	void updateHealth();
 	
+	void configureLoadout(int * loadout);
+	void changeGun();
 	
 	void shoot();
 

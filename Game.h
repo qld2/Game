@@ -16,6 +16,9 @@ class Game : public ofBaseApp
 
 	int gamestate;
 
+	int* loadout = new int[3];
+	bool chosen = true;
+
 	Player player;
 	Roundcontroller roundcontrol;
 

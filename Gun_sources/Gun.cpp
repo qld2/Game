@@ -1,4 +1,4 @@
-#include "Gun.h"
+#include "..\Gun_headers\Gun.h"
 
 Gun::Gun()
 {
@@ -40,16 +40,16 @@ void Gun::drawGUI() const {
 	stringstream ss1;
 	ss1 << bulletsInClip << " : " << bulletsOnPlayer;
 	
-	gunGUI.drawString(ss1.str(), ofGetScreenWidth() - 400, ofGetScreenHeight() - 100);
+	gunGUI.drawString(ss1.str(), ofGetScreenWidth() - 250, ofGetScreenHeight() - 100);
 
-	gunGUI.drawString(name, ofGetScreenWidth() - 400, ofGetScreenHeight() - 200);
+	gunGUI.drawString(name, ofGetScreenWidth() - 300, ofGetScreenHeight() - 200);
 }
 
 void Gun::shoot(float x, float y, float o) {
 	if (fireTimer.read() > fireGap && bulletsInClip > 0) {
 		float randomAdjustment = ofRandomf() * bulletRandomness;
 
-		bullets.push_back(Bullet(x, y, o + randomAdjustment, 10));
+		bullets.push_back(Bullet(x, y, o + randomAdjustment, damage, range, speed));
 		fireTimer.reset();
 		bulletsInClip--;
 	}

@@ -7,7 +7,7 @@ class Bullet {
 	float distanceTraveled, speed, range;
 	
 public:
-	Bullet(float x, float y, float theta, int damage);
+	Bullet(float x, float y, float theta, int damage, float range, float speed);
 	~Bullet();
 
 	void update();

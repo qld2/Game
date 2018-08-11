@@ -1,7 +1,7 @@
 #pragma once
 #include "Stopwatch.h"
-#include "Bullet.h"
-#include "Entity_headers/Entity.h"
+#include "..\Gun_headers\Bullet.h"
+#include "..\Entity_headers\Entity.h"
 
 class Gun {
 
@@ -32,6 +32,10 @@ protected:
 	int clipSize;
 	int bulletsOnPlayer;
 	int bulletsInClip;
+
+	float damage;
+	float range;
+	float speed;
 
 	float bulletRandomness;
 };

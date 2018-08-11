@@ -1,9 +1,8 @@
-#include "Bullet.h"
+#include "..\Gun_headers\Bullet.h"
 
-Bullet::Bullet(float x, float y, float theta, int d) : xLoc(x), yLoc(y), orientation(theta), damage(d) {
+Bullet::Bullet(float x, float y, float theta, int d, float range, float speed) : xLoc(x), yLoc(y), orientation(theta), 
+		damage(d), range(range), speed(speed) {
 	distanceTraveled = 0;
-	speed = 8;
-	range = 1000;
 }
 
 Bullet::~Bullet() {

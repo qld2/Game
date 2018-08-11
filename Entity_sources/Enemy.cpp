@@ -7,7 +7,7 @@ Enemy::Enemy(float x, float y, float o, Player* p) : Entity(x, y, o), player(p)
 	translationalSpeed = 2;
 	rotationalSpeed = PI / 100;
 
-	maxHealth = 10;
+	maxHealth = 100;
 	health = maxHealth;
 
 	color = ofColor(255, 100, 0);

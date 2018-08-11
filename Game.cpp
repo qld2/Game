@@ -25,6 +25,10 @@ void Game::setup() {
 
 	player = Player(400, 400, 0);
 	roundcontrol = Roundcontroller(&player);
+
+	for (int i = 0; i < 3; i++) {
+		loadout[i] = 0;
+	}
 }
 
 void Game::update() {
@@ -33,7 +37,12 @@ void Game::update() {
 
 	}
 	else if (gamestate == 1) {
-
+		chosen = true;
+		for (int i = 0; i < 3; i++) {
+			if (loadout[i] == 0) {
+				chosen = false;
+			}
+		}
 	}
 	else if (gamestate == 2){
 	
@@ -74,7 +83,11 @@ void Game::draw(){
 
 //--------------------------------------------------------------
 void Game::keyPressed(int key) {
-
+	if (gamestate == 3) {
+		if (key == 'e') {
+			player.changeGun();
+		}
+	}
 }
 
 void Game::keyReleased(int key) {
@@ -99,13 +112,57 @@ void Game::mouseMoved(int x, int y) {
 }
 
 void Game::mousePressed(int x, int y, int button) {
-	cout << x << " " << y << endl;
+
 	if (gamestate == 0) {
 		if (onStart(x, y)) {
 			gamestate = 1;
 		}
 
 		if (onGuide(x, y)) {
+			gamestate = 3;
+		}
+	}
+	else if (gamestate == 1) {
+		if (x > ofGetScreenWidth() / 4 - 100 && x < ofGetScreenWidth() / 4 + 100 
+			&& y > 2 * ofGetScreenHeight() / 5 - 50 && y < 2 * ofGetScreenHeight() / 5 + 50) {
+
+			loadout[0] = 1;
+		}
+		if (x > ofGetScreenWidth() / 4 - 100 && x < ofGetScreenWidth() / 4 + 100
+			&& y > 3 * ofGetScreenHeight() / 5 - 50 && y < 3 * ofGetScreenHeight() / 5 + 50) {
+
+			loadout[0] = 2;
+		}
+		if (x > ofGetScreenWidth() / 2 - 100 && x < ofGetScreenWidth() / 2 + 100
+			&& y > 2 * ofGetScreenHeight() / 5 - 50 && y < 2 * ofGetScreenHeight() / 5 + 50) {
+
+			loadout[1] = 1;
+		}
+		if (x > ofGetScreenWidth() / 2 - 100 && x < ofGetScreenWidth() / 2 + 100
+			&& y > 3 * ofGetScreenHeight() / 5 - 50 && y < 3 * ofGetScreenHeight() / 5 + 50) {
+
+			loadout[1] = 2;
+		}
+		if (x > ofGetScreenWidth() / 2 - 100 && x < ofGetScreenWidth() / 2 + 100
+			&& y > 4 * ofGetScreenHeight() / 5 - 50 && y < 4 * ofGetScreenHeight() / 5 + 50) {
+
+			loadout[1] = 3;
+		}
+		if (x > 3 * ofGetScreenWidth() / 4 - 100 && x < 3 * ofGetScreenWidth() / 4 + 100
+			&& y > 2 * ofGetScreenHeight() / 5 - 50 && y < 2 * ofGetScreenHeight() / 5 + 50) {
+
+			loadout[2] = 1;
+		}
+		if (x > 3 * ofGetScreenWidth() / 4 - 100 && x < 3 * ofGetScreenWidth() / 4 + 100
+			&& y > 3 * ofGetScreenHeight() / 5 - 50 && y < 3 * ofGetScreenHeight() / 5 + 50) {
+
+			loadout[2] = 2;
+		}
+
+		if (chosen && x > ofGetScreenWidth() - 250 && x < ofGetScreenWidth() - 250 + scifibit35.stringWidth("START") 
+			&& y > ofGetScreenHeight() - 100 - scifibit35.stringHeight("START") && y < ofGetScreenHeight() - 100) {
+			
+			player.configureLoadout(loadout);
 			gamestate = 3;
 		}
 	}
@@ -182,6 +239,39 @@ void Game::drawLoadout() const {
 	scifibit35.drawString("SMG", ofGetScreenWidth() / 2 - scifibit35.stringWidth("SMG") / 2, 4 * ofGetScreenHeight() / 5 + scifibit35.stringHeight("LMG") / 2);
 	scifibit15.drawString("RANDOM CANON", 3 * ofGetScreenWidth() / 4 - scifibit15.stringWidth("RANDOM CANON") / 2, 2 * ofGetScreenHeight() / 5 + scifibit15.stringHeight("RANDOM /n CANON") / 2);
 	scifibit15.drawString("FLAMETHROWER", 3 * ofGetScreenWidth() / 4 - scifibit15.stringWidth("FLAMETHROWER") / 2, 3 * ofGetScreenHeight() / 5 + scifibit15.stringHeight("FLAMETHROWER") / 2);
+
+	ofSetColor(255, 0, 0);
+	if (loadout[0] == 1) {
+		ofDrawRectangle(ofGetScreenWidth() / 4 - 87.5, 2 * ofGetScreenHeight() / 5 - 37.5, 15, 15);
+	}
+	if (loadout[0] == 2) {
+		ofDrawRectangle(ofGetScreenWidth() / 4 - 87.5, 3 * ofGetScreenHeight() / 5 - 37.5, 15, 15);
+	}
+	if (loadout[1] == 1) {
+		ofDrawRectangle(ofGetScreenWidth() / 2 - 87.5, 2 * ofGetScreenHeight() / 5 - 37.5, 15, 15);
+	}
+	if (loadout[1] == 2) {
+		ofDrawRectangle(ofGetScreenWidth() / 2 - 87.5, 3 * ofGetScreenHeight() / 5 - 37.5, 15, 15);
+	}
+	if (loadout[1] == 3) {
+		ofDrawRectangle(ofGetScreenWidth() / 2 - 87.5, 4 * ofGetScreenHeight() / 5 - 37.5, 15, 15);
+	}
+	if (loadout[2] == 1) {
+		ofDrawRectangle(3 * ofGetScreenWidth() / 4 - 87.5, 2 * ofGetScreenHeight() / 5 - 37.5, 15, 15);
+	}
+	if (loadout[2] == 2) {
+		ofDrawRectangle(3 * ofGetScreenWidth() / 4 - 87.5, 3 * ofGetScreenHeight() / 5 - 37.5, 15, 15);
+	}
+
+	if (chosen) {
+
+
+		//ofDrawRectangle(ofGetScreenWidth() - 250, ofGetScreenHeight() - 100 - scifibit35.stringHeight("START"), 15, 15);
+		//ofDrawRectangle(ofGetScreenWidth() - 250, ofGetScreenHeight() - 100, 15, 15);
+		//ofDrawRectangle(ofGetScreenWidth() - 250 + scifibit35.stringWidth("START"), ofGetScreenHeight() - 100 - scifibit35.stringHeight("START"), 15, 15);
+		//ofDrawRectangle(ofGetScreenWidth() - 250 + scifibit35.stringWidth("START"), ofGetScreenHeight() - 100, 15, 15);
+		scifibit35.drawString("START", ofGetScreenWidth() - 250, ofGetScreenHeight() - 100);
+	}
 }
 
 void Game::drawGuide() const {

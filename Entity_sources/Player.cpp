@@ -3,13 +3,15 @@
 
 Player::Player(float x, float y, float o) : Entity(x, y, o)
 {
+	currentGun = 0;
+
 	health = 3;
 	maxHealth = 3;
 	translationalSpeed = 15;
 
 	color = ofColor(0, 100, 255);
-	gun = Flamethrower();
 	healthTimer = Stopwatch();
+
 }
 
 Player::Player() : Entity(0, 0, 0)
@@ -19,7 +21,6 @@ Player::Player() : Entity(0, 0, 0)
 	translationalSpeed = 15;
 
 	color = ofColor(0, 100, 255);
-	gun = Gun();
 	healthTimer = Stopwatch();
 }
 
@@ -79,8 +80,12 @@ void Player::update()
 		}
 	} else if (ofGetKeyPressed('i')) shoot();
 	
-
-	gun.update();
+	for (int i = 0; i < 3; i++) {
+		if (guns[i].getBullets().size() > 0 && i != currentGun) {
+			guns[i].update();
+		}
+	}
+	guns[currentGun].update();
 }
 
 void Player::updateHealth() {
@@ -88,14 +93,19 @@ void Player::updateHealth() {
 }
 
 void Player::draw() const {
-	gun.draw();
+	for (int i = 0; i < 3; i++) {
+		if (guns[i].getBullets().size() > 0 && i != currentGun) {
+			guns[i].draw();
+		}
+	}
+	guns[currentGun].draw();
 
 	Entity::draw();
 }
 
 void Player::drawGUI() const {
 	drawHealthBar();
-	gun.drawGUI();
+	guns[currentGun].drawGUI();
 }
 
 void Player::drawHealthBar() const {
@@ -153,13 +163,43 @@ void Player::reachBoundary(float* x, float* y, float deltaX, float deltaY) {
 }
 
 void Player::shoot() {
-	gun.shoot(xLoc, yLoc, orientation);
+	guns[currentGun].shoot(xLoc, yLoc, orientation);
 }
 
 vector<Bullet>& Player::getBullets() {
-	return gun.getBullets();
+	return guns[currentGun].getBullets();
 }
 
 int Player::getHealth() const {
 	return health;
+}
+
+void Player::configureLoadout(int * loadout) {
+	if (loadout[0] == 1) {
+		guns[0] = P90();
+	}
+	if (loadout[0] == 2) {
+		guns[0] = Revolver();
+	}
+	if (loadout[1] == 1) {
+		guns[1] = Assault();
+	}
+	if (loadout[1] == 2) {
+		guns[1] = LMG();
+	}
+	if (loadout[1] == 3) {
+		guns[1] = SMG();
+	}
+	if (loadout[2] == 1) {
+		guns[2] = RandomCanon();
+	}
+	if (loadout[2] == 2) {
+		guns[2] = Flamethrower();
+	}
+}
+
+void Player::changeGun() {
+	currentGun++;
+	if (currentGun == 3)
+		currentGun = 0;
 }
